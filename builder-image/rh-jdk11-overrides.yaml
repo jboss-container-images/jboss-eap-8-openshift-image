@@ -1,0 +1,19 @@
+schema_version: 1
+
+packages:
+ content_sets_file: content_sets_rhel8.yml
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap8-beta-openjdk11-builder-openshift
+    branch: jb-eap-8.0-rhel-8
