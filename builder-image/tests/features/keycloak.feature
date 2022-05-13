@@ -1,3 +1,4 @@
+#IGNORE_TEST_RUN
 # Can't be run currently with current keycloak: org.jboss.modules.ModuleNotFoundException: org.picketbox
 Feature: Keycloak legacy tests
 
