@@ -1,0 +1,88 @@
+schema_version: 1
+
+name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform 8.0 OpenShift container image."
+version: &imgVersion "8.0.0.Beta"
+from: "registry.access.redhat.com/ubi8/ubi-minimal"
+labels:
+    - name: name
+      value: *imgName
+    - name: "org.jboss.product"
+      value: "eap8-openjdk11-builder"
+    - name: "org.jboss.product.version"
+      value: *imgVersion
+    - name: "com.redhat.component"
+      value: "jboss-eap8-beta-openjdk11-builder-openshift-container"
+    - name: io.k8s.description
+      value: "Platform for building and running JavaEE applications on JBoss EAP 8"
+    - name: io.k8s.display-name
+      value: "JBoss EAP 8 S2I builder"
+    - name: io.openshift.expose-services
+      value: "8080:http"
+    - name: io.openshift.tags
+      value: "builder,javaee,eap,eap8"
+    - name: maintainer
+      value: "Red Hat"
+    - name: "io.openshift.s2i.scripts-url"
+      value: "image:///usr/local/s2i"
+    - name: "io.s2i.scripts-url"
+      value: "image:///usr/local/s2i"
+    - name: "org.jboss.deployments-dir"
+      value: "/opt/server/standalone/deployments"
+envs:
+    - name: SCRIPT_DEBUG
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      example: "true"
+    - name: IMAGE_NAME
+      value: *imgName
+    - name: IMAGE_VERSION
+      value: *imgVersion
+    - name: JBOSS_HOME
+      value: /opt/server
+    - name: PROVISIONING_MAVEN_PLUGIN_ARTIFACT_ID
+      value: eap-maven-plugin
+    - name: PROVISIONING_MAVEN_PLUGIN_GROUP_ID
+      value: org.jboss.eap.plugins
+      # TODO To be replaced with actual productized plugin version
+    - name: PROVISIONING_MAVEN_PLUGIN_VERSION
+      value: 1.0.0.Beta-redhat-00001
+    - name: SSO_DEFAULT_PROVIDER_NAME
+      value: sso
+ports:
+    - value: 8080
+modules:
+      repositories:
+          - name: openjdk
+            git:
+              url: https://github.com/jboss-container-images/openjdk
+              ref: develop
+          - name: wildfly-cekit-modules
+            git:
+              url: https://github.com/wildfly/wildfly-cekit-modules
+              ref: main
+          - name: eap-modules
+            path: ../modules
+      install:
+          - name: jboss.container.util.pkg-update
+          - name: jboss.container.openjdk.jdk
+            version: "11"
+          - name: jboss.container.maven
+            version: "8.6.3.6.11"
+          - name: jboss.container.wildfly.dynamic-resources
+          - name: jboss.container.maven.s2i
+          - name: jboss.container.wildfly.s2i.legacy
+          - name: jboss.container.eap.s2i-eap.bash
+
+packages:
+  manager: microdnf
+  install:
+          # required by launch scripts
+          - hostname
+          - jq
+          - vim-minimal
+run:
+      user: 185
+      cmd:
+          - "sh"
+          - "-c"
+          - "${JBOSS_CONTAINER_WILDFLY_RUN_MODULE}/run"

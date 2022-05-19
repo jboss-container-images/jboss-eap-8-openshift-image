@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cat <<EOF
+This is an S2I EAP 8 ubi8 based image responsible for building, installing and running a EAP 8 server and application.
+
+EOF

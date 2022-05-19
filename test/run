@@ -1,0 +1,158 @@
+#!/bin/bash -e
+SCRIPT_DIR=$(dirname $0)
+test_dir="$(readlink -zf $(dirname "${BASH_SOURCE[0]}"))"
+log_file=$(mktemp -u --suffix=.log)
+s2i_log_file=$(mktemp -u --suffix=.log)
+cid_file=$(mktemp -u --suffix=.cid)
+
+# Since we built the image locally, we don't want S2I attempt to pull
+# it from Docker hub
+s2i_args="--pull-policy=never"
+
+test_port=8080
+
+image_exists() {
+  docker inspect $1 &>/dev/null
+}
+
+container_exists() {
+  image_exists $(cat $cid_file)
+}
+
+container_ip() {
+  docker inspect --format="{{ .NetworkSettings.IPAddress }}" $(cat $cid_file)
+}
+
+prepare() {
+  app=$1
+  shift
+  if ! image_exists ${IMAGE_NAME}:${IMAGE_VERSION}; then
+    echo "ERROR: The image ${IMAGE_NAME}:${IMAGE_VERSION} must exist before this script is executed."
+    exit 1
+  fi
+  if ! image_exists ${RUNTIME_IMAGE_NAME}:${IMAGE_VERSION}; then
+    echo "ERROR: The image ${RUNTIME_IMAGE_NAME}:${IMAGE_VERSION} must exist before this script is executed."
+    exit 1
+  fi
+  s2i build ${s2i_args} file://${test_dir}/$app ${IMAGE_NAME}:${IMAGE_VERSION} ${IMAGE_NAME}-testapp $@ >& $s2i_log_file
+}
+
+run_test_application-rt() {
+  docker run --rm $1 --cidfile=${cid_file} ${RUNTIME_IMAGE_NAME}-testapp  >& $log_file
+}
+
+cleanup() {
+  if container_exists; then
+    docker stop $(cat $cid_file)
+    if [[ $1 != "0" ]]; then
+      docker logs $(cat $cid_file)
+    fi
+  fi
+  if image_exists ${IMAGE_NAME}-testapp; then
+    docker rmi -f ${IMAGE_NAME}-testapp
+  fi
+  if image_exists ${RUNTIME_IMAGE_NAME}-testapp; then
+    docker rmi -f ${RUNTIME_IMAGE_NAME}-testapp
+  fi
+  rm -rf ${test_dir}/test-app/.git
+  rm -f $cid_file
+}
+
+cleanupFinal() {
+  rm -f $log_file
+  rm -f $s2i_log_file
+}
+
+check_result() {
+  local result="$1"
+  if [[ "$result" != "0" ]]; then
+    cleanup 1
+    echo "S2I image '${IMAGE_NAME}' test FAILED (exit code: ${result}), last container execution log file in $log_file"
+    exit $result
+  fi
+}
+
+wait_for_cid() {
+  local max_attempts=30
+  local sleep_time=1
+  local attempt=1
+  local result=1
+  while [ $attempt -le $max_attempts ]; do
+    [ -f $cid_file ] && [ -s $cid_file ] && break
+    echo "Waiting for container start..."
+    attempt=$(( $attempt + 1 ))
+    sleep $sleep_time
+  done
+}
+
+run_test_usage() {
+  s2i usage ${s2i_args} ${IMAGE_NAME}:${IMAGE_VERSION} &>/dev/null
+}
+
+test_connection() {
+  local max_attempts=30
+  local sleep_time=1
+  local attempt=1
+  local result=1
+  while [ $attempt -le $max_attempts ]; do
+    echo "Sending GET request to http://$(container_ip):${test_port}/"
+    set +e
+    response_code=$(curl -s -w %{http_code} -o /dev/null http://$(container_ip):${test_port}/)
+    status=$?
+    set -e
+    if [ $status -eq 0 ]; then
+      if [ $response_code -eq 200 ]; then
+        result=0
+      fi
+      break
+    fi
+    attempt=$(( $attempt + 1 ))
+    sleep $sleep_time
+  done
+  return $result
+}
+
+build_chained_build() {
+rt_docker_dir=$(mktemp -d)
+rt_docker_file=$rt_docker_dir/Dockerfile
+  cat <<EOF > $rt_docker_file
+FROM ${RUNTIME_IMAGE_NAME}:${IMAGE_VERSION}
+COPY --chown=jboss:root --from=${IMAGE_NAME}-testapp:latest /opt/server \$JBOSS_HOME
+EOF
+  docker build -t ${RUNTIME_IMAGE_NAME}-testapp $rt_docker_dir
+  ret=$?
+  rm -rf $rt_docker_dir
+  return $ret
+}
+
+echo "Testing image $IMAGE_NAME"
+echo "Last s2i execution is logged in $s2i_log_file"
+echo "Last container execution is logged in $log_file"
+
+echo "### Test usage."
+
+prepare test-app
+
+# Verify the 'usage' script is working properly
+run_test_usage
+check_result $?
+
+
+echo "### Test chained build"
+cid_file=$(mktemp -u --suffix=.cid)
+prepare test-app
+
+build_chained_build
+check_result $?
+
+run_test_application-rt &
+
+wait_for_cid
+
+test_connection
+check_result $?
+
+cleanup 0
+
+cleanupFinal
+echo "Test SUCCESSFUL"
