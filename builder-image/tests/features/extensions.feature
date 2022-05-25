@@ -1,10 +1,11 @@
+@jboss-eap-8-tech-preview
 Feature: EAP extensions tests
 
   Scenario: Build server image
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-advanced-extensions with env and True using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario: Test preconfigure.sh
     When container integ- is started with env

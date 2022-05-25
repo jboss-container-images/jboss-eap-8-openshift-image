@@ -1,10 +1,12 @@
+@jboss-eap-8-tech-preview
 Feature: Some elytron testing
 
 Scenario: Build elytron app
     Given s2i build https://github.com/jboss-container-images/jboss-eap-modules from tests/examples/test-app-web-security with env and true using master
        | variable                   | value       |
        | GALLEON_PROVISION_LAYERS | datasources-web-server |
-       | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+       | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
      Then container log should contain WFLYSRV0025
 
  Scenario: check Elytron configuration with elytron core realms security domain fail

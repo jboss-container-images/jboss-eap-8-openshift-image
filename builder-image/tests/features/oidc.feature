@@ -1,5 +1,5 @@
-@wildfly/wildfly-s2i-jdk17
-@wildfly/wildfly-s2i-jdk11
+#IGNORE_TEST_RUN
+@jboss-eap-8-tech-preview
 Feature: OIDC tests
 
    Scenario: Check oidc subsystem configuration.
@@ -31,8 +31,9 @@ Feature: OIDC tests
        | OIDC_PROVIDER_URL           | http://localhost:8080/auth/realms/demo    |
        | OIDC_SECURE_DEPLOYMENT_ENABLE_CORS        | true                          |
        | OIDC_SECURE_DEPLOYMENT_BEARER_ONLY        | true                          |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
        | GALLEON_PROVISION_LAYERS | cloud-server,elytron-oidc-client |
-       | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+       | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
     Then container log should contain WFLYSRV0010: Deployed "oidc-webapp-legacy.war"
     And XML file /opt/server/standalone/configuration/standalone.xml should contain value keycloak on XPath //ns:provider/@name
     And XML file /opt/server/standalone/configuration/standalone.xml should contain value oidc-webapp-legacy.war on XPath //*[local-name()='secure-deployment']/@name

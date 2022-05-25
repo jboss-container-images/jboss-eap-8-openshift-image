@@ -1,10 +1,11 @@
+@jboss-eap-8-tech-preview
 Feature: Openshift EAP jgroups
 
   Scenario: Build server image
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-clustering with env and true using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025:
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   # CLOUD-336
   Scenario: Check if jgroups is secure
@@ -13,7 +14,7 @@ Feature: Openshift EAP jgroups
        | JGROUPS_CLUSTER_PASSWORD | asdfasdf |
        | JGROUPS_PING_PROTOCOL               | openshift.DNS_PING                      |
        |OPENSHIFT_DNS_PING_SERVICE_NAME    | foo |
-    Then container log should contain WFLYSRV0025:
+    Then exactly 2 times container log should contain WFLYSRV0025:
      And XML file /opt/server/standalone/configuration/standalone.xml should have 2 elements on XPath //*[local-name()='auth-protocol'][@type='AUTH']
 
   Scenario: Check jgroups encryption does not create invalid configuration with missing name
