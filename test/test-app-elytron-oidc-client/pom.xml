@@ -15,9 +15,7 @@
         <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.maven.war.plugin>3.3.2</version.maven.war.plugin>
-        <version.wildfly>26.1.0.Beta1</version.wildfly>
-        <version.wildfly.cloud.galleon.pack>1.0.0.Beta4</version.wildfly.cloud.galleon.pack>
-        <version.wildfly.plugin>3.0.0.Final</version.wildfly.plugin>
+        <version.wildfly.plugin>1.0.0.Alpha2-redhat-00001</version.wildfly.plugin>
     </properties>
 
     <dependencies>
@@ -45,18 +43,24 @@
                         <version>${version.maven.war.plugin}</version>
                     </plugin>
                     <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <groupId>org.jboss.eap.plugins</groupId>
+                        <artifactId>eap-maven-plugin</artifactId>
                         <version>${version.wildfly.plugin}</version>
                         <configuration>
+                            <channels>
+                                <channel>
+                                    <groupId>org.jboss.eap.channels</groupId>
+                                    <artifactId>eap-8.0-beta</artifactId>
+                                </channel>
+                            </channels>
                             <!-- some tests check for the provisioned galleon layers -->
                             <record-provisioning-state>true</record-provisioning-state>
                             <feature-packs>
                                 <feature-pack>
-                                    <location>org.wildfly:wildfly-galleon-pack:${version.wildfly}</location>
+                                    <location>org.wildfly:wildfly-galleon-pack</location>
                                 </feature-pack>
                                 <feature-pack>
-                                    <location>org.wildfly.cloud:wildfly-cloud-galleon-pack:${version.wildfly.cloud.galleon.pack}</location>
+                                    <location>org.wildfly.cloud:wildfly-cloud-galleon-pack</location>
                                 </feature-pack>
                             </feature-packs>
                             <layers>

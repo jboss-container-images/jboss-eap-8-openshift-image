@@ -1,16 +1,17 @@
+@jboss-eap-8-tech-preview
 Feature: EAP s2i tests
 
   Scenario: Build the image with a server
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and True using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario: Test incremental build, no download of artifacts
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and True using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
     And s2i build log should not contain Downloaded
 
   Scenario: Test extension called at startup.
@@ -24,7 +25,7 @@ Feature: EAP s2i tests
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-extension2 with env and true using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
     Then file /opt/server/modules/org/foo/bar/test.txt should contain hello
 
   Scenario: Test custom settings with galleon
@@ -33,7 +34,7 @@ Feature: EAP s2i tests
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
     Then s2i build log should contain /home/jboss/.m2/settings.xml
     Then file /home/jboss/.m2/settings.xml should contain foo-repository
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario: Test custom settings by env with galleon
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and true using eap8-beta-dev
@@ -41,7 +42,7 @@ Feature: EAP s2i tests
      | MAVEN_SETTINGS_XML           | /home/jboss/../jboss/../jboss/.m2/settings.xml |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
     Then s2i build log should contain /home/jboss/../jboss/../jboss/.m2/settings.xml
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario: Test execution of user CLI operations at S2I phase
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app-s2i-cli-scripts with env and true using eap8-beta-dev
@@ -58,7 +59,7 @@ Feature: EAP s2i tests
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-jpa2lc with env and True using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
     Then check that page is served
       | property              | value                                   |
       | path                  | /                        |
@@ -96,7 +97,7 @@ Feature: EAP s2i tests
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-ejb with env and True using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
     Then check that page is served
       | property              | value                                   |
       | path                  | /                           |
@@ -119,7 +120,7 @@ Feature: EAP s2i tests
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image  from test/test-app-slim with env and true using eap8-beta-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario: Test failing packaging.
     Given failing s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-invalid using eap8-beta-dev

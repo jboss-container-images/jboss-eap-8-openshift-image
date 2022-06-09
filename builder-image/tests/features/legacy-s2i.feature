@@ -1,8 +1,10 @@
+@jboss-eap-8-tech-preview
 Feature: EAP Legacy s2i tests
 
   Scenario: Test provisioning.xml file
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app-local-provisioning with env and True using eap8-beta-dev
       | variable                             | value         |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_USE_LOCAL_FILE             | true  |
     Then container log should contain WFLYSRV0025
     And check that page is served
@@ -14,9 +16,10 @@ Scenario: Test preconfigure.sh
     Given s2i build https://github.com/jboss-container-images/jboss-eap-modules from tests/examples/test-app-advanced-extensions with env and True using master
       | variable                             | value         |
       | TEST_EXTENSION_PRE_ADD_PROPERTY      | foo           |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_PROVISION_LAYERS | cloud-server |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
-    Then container log should contain WFLYSRV0025
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
+   Then exactly 2 times container log should contain WFLYSRV0025:
     And container log should contain WFLYSRV0010: Deployed "ROOT.war"
     And check that page is served
       | property | value |
@@ -27,15 +30,17 @@ Scenario: Test preconfigure.sh
  Scenario: Test invalid layer
     Given failing s2i build http://github.com/openshift/openshift-jee-sample from . using master
       | variable                             | value         |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_PROVISION_LAYERS             | foo |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
 
   Scenario: Test default cloud config
     Given s2i build https://github.com/openshift/openshift-jee-sample from . with env and True using master
       | variable                             | value         |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack|
       | GALLEON_PROVISION_LAYERS | cloud-default-config |
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025
     And container log should contain WFLYSRV0010: Deployed "ROOT.war"
     And check that page is served
       | property | value |
@@ -45,9 +50,10 @@ Scenario: Test preconfigure.sh
   Scenario: Test cloud-server, exclude jaxrs
     Given s2i build https://github.com/openshift/openshift-jee-sample from . with env and True using master
       | variable                             | value         |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
       | GALLEON_PROVISION_LAYERS             | cloud-server,-jaxrs  |
-    Then container log should contain WFLYSRV0025
+    Then exactly 2 times container log should contain WFLYSRV0025:
     And check that page is served
       | property | value |
       | path     | /     |
@@ -58,9 +64,10 @@ Scenario: Test preconfigure.sh
   Scenario: Test preview FP and preview cloud FP with legacy app.
     Given s2i build https://github.com/openshift/openshift-jee-sample from . with env and True using master
       | variable                             | value         |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_PROVISION_LAYERS | cloud-server |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
-    Then container log should contain WFLYSRV0025
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack|
+    Then exactly 2 times container log should contain WFLYSRV0025:
     And container log should contain WFLYSRV0010: Deployed "ROOT.war"
     And check that page is served
       | property | value |
@@ -71,9 +78,10 @@ Scenario: Test external driver created during s2i.
     Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app-custom with env and true using legacy-s2i-images
       | variable                     | value                                                       |
       | ENV_FILES                    | /opt/server/standalone/configuration/datasources.env |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_PROVISION_LAYERS             | cloud-server  |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
-    Then container log should contain WFLYSRV0025
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
+    Then exactly 2 times container log should contain WFLYSRV0025:
     And check that page is served
       | property | value |
       | path     | /     |
@@ -86,8 +94,9 @@ Scenario: Test external driver created during s2i.
       | variable                     | value                                                       |
       | ENV_FILES                    | /opt/server/standalone/configuration/datasources.env |
       | DISABLE_BOOT_SCRIPT_INVOKER  | true |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
       | GALLEON_PROVISION_LAYERS             | cloud-server  |
-      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
     Then container log should contain Configuring the server using embedded server
     Then container log should contain WFLYSRV0025
     And check that page is served

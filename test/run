@@ -37,7 +37,7 @@ prepare() {
   s2i build ${s2i_args} file://${test_dir}/$app ${IMAGE_NAME}:${IMAGE_VERSION} ${IMAGE_NAME}-testapp $@ >& $s2i_log_file
 }
 
-run_test_application-rt() {
+run_test_application_rt() {
   docker run --rm $1 --cidfile=${cid_file} ${RUNTIME_IMAGE_NAME}-testapp  >& $log_file
 }
 
@@ -145,7 +145,7 @@ prepare test-app
 build_chained_build
 check_result $?
 
-run_test_application-rt &
+run_test_application_rt &
 
 wait_for_cid
 

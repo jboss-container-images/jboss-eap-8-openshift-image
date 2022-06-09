@@ -1,23 +1,5 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk17-runtime-openshift-rhel8"
-description: "The JBoss EAP 8 OpenJDK 17 runtime image"
-
-labels:
-    - name: "org.jboss.product"
-      value: "eap8-openjdk17-runtime"
-    - name: "com.redhat.component"
-      value: "jboss-eap8-beta-openjdk17-runtime-openshift-container"
-
-envs:
-    - name: IMAGE_NAME
-      value: *imgName
-
-modules:
-      install:
-          - name: jboss.container.openjdk.jdk
-            version: "17"
-
 packages:
       content_sets_file: content_sets_rhel8.yml
 

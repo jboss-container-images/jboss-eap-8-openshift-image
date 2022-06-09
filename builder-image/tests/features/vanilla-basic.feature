@@ -1,3 +1,4 @@
+@jboss-eap-8-tech-preview
 Feature: Vanilla EAP basic tests
 
  Scenario: Check if image version and release is printed on boot
@@ -165,7 +166,7 @@ Scenario: Check if image shuts down with TERM signal
 Scenario: Test to ensure that maven is run with -Djava.net.preferIPv4Stack=true and user-supplied arguments, even when MAVEN_ARGS is overridden, and doesn't clear the local repository after the build
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and true using eap8-beta-dev
        | variable          | value                                                                                  |
-       | MAVEN_ARGS        | -e -Dcom.redhat.xpaas.repo.jbossorg -DskipTests package -Popenshift |
+       | MAVEN_ARGS        | -e -Dcom.redhat.xpaas.repo.redhatga -Dcom.redhat.xpaas.repo.jbossorg -DskipTests package -Popenshift |
        | MAVEN_ARGS_APPEND | -Dfoo=bar                                                                              |
     Then container log should contain WFLYSRV0025
     And run sh -c 'test -d /tmp/artifacts/m2/org && echo all good' in container and immediately check its output for all good

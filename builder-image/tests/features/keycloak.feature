@@ -1,4 +1,6 @@
+#IGNORE_TEST_RUN
 # Can't be run currently with current keycloak: org.jboss.modules.ModuleNotFoundException: org.picketbox
+@jboss-eap-8-tech-preview
 Feature: Keycloak legacy tests
 
    Scenario: deploys the keycloak example, provision the default config. The app project is expected to install the keycloak adapters inside the server.
@@ -11,7 +13,8 @@ Feature: Keycloak legacy tests
        | SSO_USE_LEGACY  | true |
        | SSO_REALM         | demo    |
        | SSO_URL           | http://localhost:8080/auth    |
-       | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack:8.0.0.Beta-redhat-20220408,org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-SNAPSHOT |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+       | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
        | GALLEON_PROVISION_LAYERS|cloud-default-config|
     Then container log should contain Existing other application-security-domain is extended with support for keycloak
     Then container log should contain WFLYSRV0025
