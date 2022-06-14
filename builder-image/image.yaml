@@ -55,11 +55,11 @@ modules:
           - name: openjdk
             git:
               url: https://github.com/jboss-container-images/openjdk
-              ref: wildfly-container-1.0.3
+              ref: wildfly-container-1.1.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.0
+              ref: 0.27.1
           - name: eap-modules
             path: ../modules
       install:
@@ -80,6 +80,7 @@ packages:
           - hostname
           - jq
           - vim-minimal
+          - unzip
 run:
       user: 185
       cmd:
