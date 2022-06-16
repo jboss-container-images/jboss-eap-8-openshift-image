@@ -21,7 +21,7 @@ Scenario: Build image with server and datasource
     Then exactly 2 times container log should contain WFLYSRV0025:
 
  Scenario: Build image with server  and datasources
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using channels-support
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using eap8-beta-dev
     | variable                 | value           |
     | POSTGRESQL_DRIVER_VERSION | 42.2.19 |
     | ORACLE_DRIVER_VERSION | 19.3.0.0|
