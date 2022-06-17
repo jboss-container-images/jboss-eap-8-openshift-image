@@ -21,6 +21,22 @@ EAP 8 runtime images:
 When using both a builder and a runtime images, make sure to use images that share the same JDK version.
 ----
 
+# Examples
+
+These examples cover the 3 typical ways to build/deploy applications for Openshift using EAP 8 Openshift images.
+
+EAP 8 developers use cases:
+
+ * [Docker local build](examples/eap/docker-build), required tooling: `jdk`, `maven`, `docker`, `oc`. Best suited when testing EAP 8 new features/bug fixes.
+
+ * [S2I (Source-To-Image) binary build](examples/eap/s2i-binary-build), required tooling: `jdk`, `maven`, `oc`. Best suited when testing EAP 8 new features/bug fixes.
+
+EAP 8 users use cases:
+
+ * [S2I source build](examples/eap/s2i-source-build), required tooling: `oc`. Best suited when testing an application deployed to latest EAP 8 server with sources located in a git repository.
+ 
+ * [S2I (Source-To-Image) binary build](examples/eap/s2i-binary-build), deployment only binary build, required tooling: `jdk`, `maven`, `oc`. Best suited when testing an application deployed to latest EAP 8 server with deployment built locally.
+
 # Relationship with EAP 7.x images
 
 As opposed to the EAP 7.x S2I (Source-To-Image) builder image that contains an EAP server, the new builder image 
