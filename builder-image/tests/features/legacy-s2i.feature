@@ -105,3 +105,16 @@ Scenario: Test external driver created during s2i.
       | port     | 8080  |
     Then XML file /opt/server/standalone/configuration/standalone.xml should contain value test-TEST on XPath //*[local-name()='datasource']/@pool-name
     Then XML file /opt/server/standalone/configuration/standalone.xml should contain value testpostgres on XPath //*[local-name()='driver']/@name
+
+  Scenario: Test legacy binary build
+    Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app-binary with env and True using legacy-s2i-images
+      | variable                             | value         |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+      | GALLEON_PROVISION_LAYERS             | cloud-server  |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
+    Then container log should contain WFLYSRV0025
+    And container log should contain WFLYSRV0010: Deployed "app.war"
+    And check that page is served
+      | property | value |
+      | path     | /app     |
+      | port     | 8080  |
