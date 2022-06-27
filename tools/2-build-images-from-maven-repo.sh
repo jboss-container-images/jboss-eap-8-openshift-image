@@ -31,12 +31,16 @@ eapVersion=${eapVersion::-1}
 eapVersion=$(basename ${eapVersion})
 echo "EAP8 version is $eapVersion"
 
+eapCloudVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/cloud/eap-cloud-galleon-pack/*/)
+eapCloudVersion=${eapCloudVersion::-1}
+eapCloudVersion=$(basename ${eapCloudVersion})
+echo "EAP 8 eap-cloudcloud-galleon-pack version is $eapCloudVersion"
 
 echo "Add cloud and datasources FP to org.jboss.eap.channels:eap-8.0-beta:1.0.0.Beta-redhat-00001"
 cat <<EOF >> $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Beta-redhat-00001/eap-8.0-beta-1.0.0.Beta-redhat-00001-channel.yaml
   - groupId: "org.jboss.eap.cloud"
     artifactId: "eap-cloud-galleon-pack"
-    version: "$eapVersion"
+    version: "$eapCloudVersion"
   - groupId: "org.jboss.eap"
     artifactId: "eap-datasources-galleon-pack"
     version: "$eapVersion"
