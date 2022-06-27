@@ -15,7 +15,7 @@
         <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.maven.war.plugin>3.3.2</version.maven.war.plugin>
-        <version.wildfly.plugin>1.0.0.Alpha2-redhat-00001</version.wildfly.plugin>
+        <version.wildfly.plugin>1.0.0.Alpha3-redhat-00001</version.wildfly.plugin>
     </properties>
 
     <dependencies>
