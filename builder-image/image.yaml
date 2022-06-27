@@ -2,7 +2,7 @@ schema_version: 1
 
 name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 8.0 OpenShift container image."
-version: &imgVersion "8.0.0.Beta"
+version: &imgVersion "1.0.0.Beta"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
 labels:
     - name: name
@@ -45,7 +45,7 @@ envs:
       value: org.jboss.eap.plugins
       # TODO To be replaced with actual productized plugin version
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 1.0.0.Alpha2-redhat-00001
+      value: 1.0.0.Alpha3-redhat-00001
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: sso
 ports:
@@ -59,7 +59,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.1
+              ref: 0.27.3
           - name: eap-modules
             path: ../modules
       install:

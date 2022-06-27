@@ -1,0 +1,6 @@
+image: 
+ name: eap8-myapp
+build:
+  enabled: false
+deploy:
+  replicas: 1

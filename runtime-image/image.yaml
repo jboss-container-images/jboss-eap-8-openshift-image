@@ -2,7 +2,7 @@ schema_version: 1
 
 name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-runtime-openshift-rhel8"
 description: "The JBoss EAP 8 OpenJDK 11 runtime image"
-version: &imgVersion "8.0.0.Beta"
+version: &imgVersion "1.0.0.Beta"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
 labels:
     - name: "org.jboss.product"
@@ -48,7 +48,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.1
+              ref: 0.27.3
       install:
           - name: jboss.container.util.pkg-update
           - name: jboss.container.openjdk.jdk
