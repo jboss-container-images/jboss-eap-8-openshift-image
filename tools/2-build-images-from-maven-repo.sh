@@ -32,10 +32,8 @@ eapVersion=$(basename ${eapVersion})
 echo "EAP8 version is $eapVersion"
 
 
-echo "Install channel org.jboss.eap.channels:eap-8.0-beta:1.0.0.Final-redhat-00001"
-mkdir -p $tmpPath/docker/local-maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001
-cp  $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/$eapVersion/wildfly-ee-galleon-pack-$eapVersion-channel.yaml $tmpPath/docker/local-maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001/eap-8.0-beta-1.0.0.Final-redhat-00001-channel.yaml
-cat <<EOF >> $tmpPath/docker/local-maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001/eap-8.0-beta-1.0.0.Final-redhat-00001-channel.yaml
+echo "Add cloud and datasources FP to org.jboss.eap.channels:eap-8.0-beta:1.0.0.Beta-redhat-00001"
+cat <<EOF >> $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Beta-redhat-00001/eap-8.0-beta-1.0.0.Beta-redhat-00001-channel.yaml
   - groupId: "org.jboss.eap.cloud"
     artifactId: "eap-cloud-galleon-pack"
     version: "$eapVersion"
@@ -44,28 +42,11 @@ cat <<EOF >> $tmpPath/docker/local-maven-repository/org/jboss/eap/channels/eap-8
     version: "$eapVersion"
 EOF
 
-echo "Generate local maven metadata to resolve latest channel, installed in local cache to allow for local metadata"
-local_metadata_file=$tmpPath/docker/local-maven-repository/org/jboss/eap/channels/eap-8.0-beta/maven-metadata-local.xml
-cat <<EOF > $local_metadata_file
-<?xml version="1.0" encoding="UTF-8"?>
-<metadata>
-  <groupId>org.jboss.eap.channels</groupId>
-  <artifactId>eap-8.0-beta</artifactId>
-  <versioning>
-    <release>1.0.0.Final-redhat-00001</release>
-    <versions>
-      <version>1.0.0.Final-redhat-00001</version>
-    </versions>
-  </versioning>
-</metadata>
-EOF
-
 echo "Build JDK11 builder docker image"
 docker_file=$tmpPath/docker/Dockerfile
 cat <<EOF > $docker_file
   FROM jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest
   RUN mkdir -p /tmp/artifacts/m2
-  COPY --chown=jboss:root local-maven-repository /tmp/artifacts/m2
   COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
   COPY --chown=jboss:root maven-repository /maven-repository
 EOF
@@ -75,7 +56,6 @@ echo "Build JDK17 builder docker image"
 cat <<EOF > $docker_file
   FROM jboss-eap-8-tech-preview/eap8-openjdk17-builder-openshift-rhel8:latest
   RUN mkdir -p /tmp/artifacts/m2
-  COPY --chown=jboss:root local-maven-repository /tmp/artifacts/m2
   COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
   COPY --chown=jboss:root maven-repository /maven-repository
 EOF
