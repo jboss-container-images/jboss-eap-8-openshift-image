@@ -47,7 +47,7 @@ envs:
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
       value: 1.0.0.Alpha3-redhat-00001
     - name: SSO_DEFAULT_PROVIDER_NAME
-      value: sso
+      value: rh-sso
 ports:
     - value: 8080
 modules:
@@ -59,7 +59,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.3
+              ref: 0.27.5
           - name: eap-modules
             path: ../modules
       install:
@@ -72,6 +72,7 @@ modules:
           - name: jboss.container.maven.s2i
           - name: jboss.container.wildfly.s2i.legacy
           - name: jboss.container.eap.s2i-eap.bash
+          - name: jboss.container.eap.cleanup
 
 packages:
   manager: microdnf
