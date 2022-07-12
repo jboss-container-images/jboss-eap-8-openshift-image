@@ -36,7 +36,7 @@ envs:
     - name: JBOSS_HOME
       value: /opt/server
     - name: SSO_DEFAULT_PROVIDER_NAME
-      value: sso
+      value: rh-sso
 ports:
     - value: 8080
 modules:
@@ -48,7 +48,9 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.3
+              ref: 0.27.5
+          - name: eap-modules
+            path: ../modules
       install:
           - name: jboss.container.util.pkg-update
           - name: jboss.container.openjdk.jdk
@@ -56,6 +58,7 @@ modules:
           - name: jboss.container.java.jvm.bash
           - name: jboss.container.wildfly.dynamic-resources
           - name: jboss.container.wildfly.run
+          - name: jboss.container.eap.cleanup
 
 packages:
   manager: microdnf
