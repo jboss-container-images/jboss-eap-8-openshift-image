@@ -8,6 +8,11 @@ labels:
       value: "jboss-eap8-beta-openjdk17-builder-openshift-container"
     - name: name
       value: *imgName
+
+envs:
+    - name: IMAGE_NAME
+      value: *imgName
+
 modules:
       install:
           - name: jboss.container.openjdk.jdk

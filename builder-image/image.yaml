@@ -45,7 +45,7 @@ envs:
       value: org.jboss.eap.plugins
       # TODO To be replaced with actual productized plugin version
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 1.0.0.Alpha3-redhat-00001
+      value: 1.0.0.Beta3-redhat-00001
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
@@ -59,7 +59,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.5
+              ref: 0.27.9
           - name: eap-modules
             path: ../modules
       install:
