@@ -2,7 +2,7 @@
 Feature: Some elytron testing
 
 Scenario: Build elytron app
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-modules from tests/examples/test-app-web-security with env and true using master
+    Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app-web-security with env and true using legacy-s2i-images-ee-10-test-apps
        | variable                   | value       |
        | GALLEON_PROVISION_LAYERS | datasources-web-server |
        | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
