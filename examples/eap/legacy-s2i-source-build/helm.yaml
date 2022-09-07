@@ -1,0 +1,19 @@
+build:
+  uri: https://github.com/jboss-container-images/jboss-eap-8-openshift-image
+  mode: s2i
+  contextDir: examples/eap/legacy-s2i-source-build
+  ref: eap8-beta-dev
+  s2i:
+    version: latest
+    builderImage: registry.redhat.io/jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8
+    runtimeImage: registry.redhat.io/jboss-eap-8-tech-preview/eap8-openjdk11-runtime-openshift-rhel8
+    featurePacks:
+      - org.jboss.eap:wildfly-ee-galleon-pack
+      - org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Alpha8-redhat-00001
+    galleonLayers:
+      - jaxrs-server
+    channels:
+      - org.jboss.eap.channels:eap-8.0-beta
+deploy:
+  replicas: 1
+    

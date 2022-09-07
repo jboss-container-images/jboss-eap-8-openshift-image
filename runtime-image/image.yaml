@@ -4,6 +4,7 @@ name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-runtime-openshift-rhel8"
 description: "The JBoss EAP 8 OpenJDK 11 runtime image"
 version: &imgVersion "1.0.0.Beta"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
+# Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
     - name: "org.jboss.product"
       value: "eap8-openjdk11-runtime"
@@ -23,7 +24,7 @@ labels:
       value: "javaee,eap,eap8"
     - name: maintainer
       value: "Red Hat"
-    - name: "org.jboss.deployments-dir"
+    - name: "com.redhat.deployments-dir"
       value: "/opt/server/standalone/deployments"
 envs:
     - name: SCRIPT_DEBUG
@@ -38,13 +39,16 @@ envs:
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
+    - value: 8443
     - value: 8080
+    - value: 8787
+      expose: false
 modules:
       repositories:
           - name: openjdk
             git:
               url: https://github.com/jboss-container-images/openjdk
-              ref: wildfly-container-1.1.0
+              ref: wildfly-container-27.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules

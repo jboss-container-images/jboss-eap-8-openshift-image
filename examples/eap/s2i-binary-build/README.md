@@ -9,7 +9,7 @@ In order to create an EAP 8 server containing our application, we are using the 
 
 # EAP 8 Maven plugin configuration
 
-High level view of the WildFly Maven plugin configuration.
+High level view of the EAP Maven plugin configuration.
 
 ## Galleon feature-packs
 
@@ -22,7 +22,7 @@ High level view of the WildFly Maven plugin configuration.
 
 ## CLI scripts
 
-WildFly CLI scripts executed at packaging time
+JBoss EAP CLI scripts executed at packaging time
 
 * None
 
@@ -42,7 +42,7 @@ Technologies required to build and deploy this example
 
 * You have a `Registry Service Account`. You can [create one](https://access.redhat.com/terms-based-registry/).
 
-* You have downloaded the openshift secret file allowing to pull images in Openshift. For detailed instructions check the URL: https://access.redhat.com/terms-based-registry/#/token/<your user id>/openshift-secret`
+* [Not needed for OpenShift Sandbox] You have downloaded the openshift secret file allowing to pull images in Openshift. For detailed instructions check the URL: https://access.redhat.com/terms-based-registry/#/token/<your user id>/openshift-secret`
 
 * You are logged into an OpenShift cluster and have `oc` command in your path
 
@@ -60,7 +60,7 @@ mvn clean package [-Dversion.eap=<your SNAPSHOT version>]
 
 ## Build the image on Openshift
 
-1. Import the EAP 8 s2i Builder image in Openshift
+1. Setup to pull EAP 8 s2i builder and runtime images in Openshift [only required for on-premise installation of OpenShift, not needed for OpenShift Sandbox]
 
 Create the authentication token secret for your OpenShift project using the YAML file that you downloaded:
 
@@ -76,25 +76,25 @@ oc secrets link default 1234567-myserviceaccount-pull-secret --for=pull
 oc secrets link builder 1234567-myserviceaccount-pull-secret --for=pull
 ```
 
-Import the image
+2. Import the EAP 8 s2i Builder image in Openshift
 
 ```
 oc import-image jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest --from=registry.redhat.io/jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest --confirm
 ```
 
-1. Create the binary build.
+3. Create the binary build.
 
 ```
 oc new-build --strategy source --binary --image-stream eap8-openjdk11-builder-openshift-rhel8 --name eap8-binary-build-app-build
 ```
 
-2. Start a binary build from the full server that will output the application image.
+4. Start a binary build from the full server that will output the application image.
 
 ```
 oc start-build eap8-binary-build-app-build --from-dir target/server
 ```
 
-2.1 [Alternative] Start a binary build from the deployment only that will provision the EAP8 server, deploy the deployment and output the application image.
+4.1 [Alternative] Start a binary build from the deployment only that will provision the EAP8 server, deploy the deployment and output the application image.
 
 ```
 oc start-build eap8-binary-build-app-build --from-file target/ROOT.war --env GALLEON_PROVISION_LAYERS=jaxrs-server \
@@ -102,14 +102,14 @@ oc start-build eap8-binary-build-app-build --from-file target/ROOT.war --env GAL
 --env GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0-beta"
 ```
 
-3. Deploy the example application
+5. Deploy the example application
 
 ```
 oc new-app eap8-binary-build-app
 oc expose svc/eap8-binary-build-app
 ```
 
-4. Access the endpoint
+6. Access the endpoint
 
 ```
 curl https://$(oc get route eap8-binary-build-app --template='{{ .spec.host }}')/

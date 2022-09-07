@@ -117,7 +117,7 @@ Scenario: Test external driver created during s2i.
     And check that page is served
       | property | value |
       | path     | /app     |
-      | port     | 8080  
+      | port     | 8080  |
 
  Scenario: Multiple deployments legacy
    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-multi-deployments-legacy with env and True using eap8-beta-dev

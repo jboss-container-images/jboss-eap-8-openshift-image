@@ -1,9 +1,10 @@
 schema_version: 1
 
 name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8"
-description: "Red Hat JBoss Enterprise Application Platform 8.0 OpenShift container image."
+description: "Red Hat JBoss Enterprise Application Platform 8 OpenShift S2I Builder image."
 version: &imgVersion "1.0.0.Beta"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
+# Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
     - name: name
       value: *imgName
@@ -14,7 +15,7 @@ labels:
     - name: "com.redhat.component"
       value: "jboss-eap8-beta-openjdk11-builder-openshift-container"
     - name: io.k8s.description
-      value: "Platform for building and running JavaEE applications on JBoss EAP 8"
+      value: "Platform for building and running Jakarta EE applications on JBoss EAP 8"
     - name: io.k8s.display-name
       value: "JBoss EAP 8 S2I builder"
     - name: io.openshift.expose-services
@@ -27,7 +28,7 @@ labels:
       value: "image:///usr/local/s2i"
     - name: "io.s2i.scripts-url"
       value: "image:///usr/local/s2i"
-    - name: "org.jboss.deployments-dir"
+    - name: "com.redhat.deployments-dir"
       value: "/opt/server/standalone/deployments"
 envs:
     - name: SCRIPT_DEBUG
@@ -49,13 +50,16 @@ envs:
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
+    - value: 8443
     - value: 8080
+    - value: 8787
+      expose: false
 modules:
       repositories:
           - name: openjdk
             git:
               url: https://github.com/jboss-container-images/openjdk
-              ref: wildfly-container-1.1.0
+              ref: wildfly-container-27.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules

@@ -32,7 +32,7 @@ for feature in $imageDir/all-tests/features/*.feature; do
       docker system prune -f
       if [ $RESULT != 0 ]; then
         echo "*** ERROR for $featureFileName, check log file $logFilejdk11"
-        error=true
+        testError=true
       fi
       echo "RUNNING $featureFileName with JDK17"
       cekit --redhat test --image=$JDK17_BUILDER_IMAGE behave > $logFilejdk17 2>&1

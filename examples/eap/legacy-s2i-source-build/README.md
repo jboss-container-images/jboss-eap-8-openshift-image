@@ -1,15 +1,30 @@
-# Building an EAP 8 application image using EAP 8 S2I source build
+# Building an EAP 8 application image using EAP 8 S2I legacy source build
 
-In this example we are making use of the EAP 8 S2I builder and runtime images to build an EAP 8 server + JAX-RS application docker image on Openshift.
-In order to create an EAP 8 server containing our application, we are using the [EAP Maven Plugin](https://github.com/jbossas/eap-maven-plugin).
+In this example we are building and deploying to OpenShift an application that has been migrated to use Jakarta EE 10 
+but has not been updated to use the [EAP Maven Plugin](https://github.com/jbossas/eap-maven-plugin).
 
 # Use-cases
 
-* User typical S2I workflow. Start from a github source repository, use latest released EAP 8 artifacts and images.
+* User wants to keep the EAP 7.4.x S2I workflow. Start from a github source repository, use latest released EAP 8 artifacts and images.
 
-# EAP 8 Maven plugin configuration
+# Helm Chart provisioning configuration
 
-High level view of the EAP Maven plugin configuration.
+EAP 8 provisioning configuration (feature-packs, layers and channels) is defined in EAP 8 Helm Chart yaml file.
+
+```
+...
+build:
+  s2i:
+    featurePacks:
+      - org.jboss.eap:wildfly-ee-galleon-pack
+      - org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Alpha8-redhat-00001
+    galleonLayers:
+      - jaxrs-server
+    channels:
+      - org.jboss.eap.channels:eap-8.0-beta
+ ...
+
+High level view of the Helm Chart configuration.
 
 ## Galleon feature-packs
 
