@@ -31,7 +31,7 @@ High level view of the Helm Chart configuration.
 * `org.jboss.eap:wildfly-ee-galleon-pack`
 * `org.jboss.eap.cloud:eap-cloud-galleon-pack`
 
-NB, the feature-packs are retrieved from the latest EAP8 channel: `org.jboss.eap.channels:eap-8.0-beta`
+NB, the versions of the feature-packs are retrieved from the latest EAP8 channel: `org.jboss.eap.channels:eap-8.0-beta`
 
 ## Galleon layers
 
@@ -59,7 +59,7 @@ Technologies required to build and deploy this example
 
 * You have a `Registry Service Account`. You can [create one](https://access.redhat.com/terms-based-registry/).
 
-* You have downloaded the Openshift secret file allowing to pull images in openshift. For detailed instructions check the URL: https://access.redhat.com/terms-based-registry/#/token/<your user id>/openshift-secret`
+* [Not needed for OpenShift Sandbox] You have downloaded the Openshift secret file allowing to pull images in openshift. For detailed instructions check the URL: https://access.redhat.com/terms-based-registry/#/token/<your user id>/openshift-secret`
 
 * You are logged into an OpenShift cluster and have `oc` command in your path.
 
@@ -73,7 +73,7 @@ helm repo add wildfly https://docs.wildfly.org/wildfly-charts/
 
 # Example steps
 
-1. Setup to pull EAP 8 s2i builder and runtime images in Openshift
+1. Setup to pull EAP 8 s2i builder and runtime images in Openshift [only required for on-premise installation of OpenShift, not needed for OpenShift Sandbox]
 
 Create the authentication token secret for your OpenShift project using the YAML file that you downloaded:
 

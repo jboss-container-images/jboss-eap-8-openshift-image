@@ -11,7 +11,7 @@ The docker image is built then deployed on an Openshift cluster using Helm chart
 
 # EAP 8 Maven plugin configuration
 
-High level view of the WildFly Maven plugin configuration.
+High level view of the EAP Maven plugin configuration.
 
 ## Galleon feature-packs
 
@@ -24,7 +24,7 @@ High level view of the WildFly Maven plugin configuration.
 
 ## CLI scripts
 
-WildFly CLI scripts executed at packaging time
+JBoss EAP CLI scripts executed at packaging time
 
 * None
 
