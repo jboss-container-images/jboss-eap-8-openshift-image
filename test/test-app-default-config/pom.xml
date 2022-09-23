@@ -34,7 +34,7 @@
         </license>
     </licenses>
     <properties>
-        <version.wildfly.plugin>1.0.0.Beta3-redhat-00001</version.wildfly.plugin>
+        <version.wildfly.plugin>${env.PROVISIONING_MAVEN_PLUGIN_VERSION}</version.wildfly.plugin>
     </properties>
     <build>
         <plugins>
