@@ -52,7 +52,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.9
+              ref: 0.27.12
           - name: eap-modules
             path: ../modules
       install:
