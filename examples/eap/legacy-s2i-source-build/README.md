@@ -17,7 +17,7 @@ build:
   s2i:
     featurePacks:
       - org.jboss.eap:wildfly-ee-galleon-pack
-      - org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Alpha8-redhat-00001
+      - org.jboss.eap.cloud:eap-cloud-galleon-pack
     galleonLayers:
       - jaxrs-server
     channels:
@@ -53,7 +53,7 @@ Extra content packaged inside the provisioned server
 
 Technologies required to build and deploy this example
 
-* TO BE UPDATED WITH EAP/XP helm charts: Helm chart for WildFly `wildfly/wildfly`. Minimal version `2.0.0`.
+* Helm chart for EAP8 `jboss-eap/eap8`.
 
 # Pre-requisites
 
@@ -65,10 +65,10 @@ Technologies required to build and deploy this example
 
 * You have installed Helm. Please refer to [Installing Helm page](https://helm.sh/docs/intro/install/) to install Helm in your environment
 
-* You have installed the repository for the Helm charts for WildFly
+* You have installed the repository for the Helm charts for EAP 8
 
  ```
-helm repo add wildfly https://docs.wildfly.org/wildfly-charts/
+helm repo add jboss-eap https://jbossas.github.io/eap-charts/
 ```
 
 # Example steps
@@ -89,10 +89,10 @@ oc secrets link default 1234567-myserviceaccount-pull-secret --for=pull
 oc secrets link builder 1234567-myserviceaccount-pull-secret --for=pull
 ```
 
-2. Deploy the example application using WildFly Helm charts
+2. Deploy the example application using EAP 8 Helm charts
 
 ```
-helm install eap8-source-build-app -f helm.yaml wildfly/wildfly
+helm install eap8-source-build-app -f helm.yaml jboss-eap/eap8
 ```
 
 3. Access the endpoint
