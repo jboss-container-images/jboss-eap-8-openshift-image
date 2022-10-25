@@ -40,7 +40,7 @@ Technologies required to build and deploy this example
 
 * docker
 
-* TO BE UPDATED WITH EAP/XP helm charts: Helm chart for WildFly `wildfly/wildfly`. Minimal version `2.0.0`.
+* Helm chart for EAP8 `jboss-eap/eap8`.
 
 # Pre-requisites
 
@@ -54,10 +54,10 @@ Technologies required to build and deploy this example
 
 * You have installed Helm. Please refer to [Installing Helm page](https://helm.sh/docs/intro/install/) to install Helm in your environment
 
-* You have installed the repository for the Helm charts for WildFly
+* You have installed the repository for the Helm charts for EAP 8
 
  ```
-helm repo add wildfly https://docs.wildfly.org/wildfly-charts/
+helm repo add jboss-eap https://jbossas.github.io/eap-charts/
 ```
 
 * You have built EAP 8 and artifacts are present in your local maven cache
@@ -91,6 +91,7 @@ export IMAGE=eap8-myapp:latest
 export OPENSHIFT_NS=$(oc project -q)
 oc registry login
 # Copy the route in the env variable OPENSHIFT_IMAGE_REGISTRY
+OPENSHIFT_IMAGE_REGISTRY=$(oc registry info)
 docker login -u openshift -p $(oc whoami -t)  $OPENSHIFT_IMAGE_REGISTRY
 docker tag  $IMAGE $OPENSHIFT_IMAGE_REGISTRY/$OPENSHIFT_NS/$IMAGE
 docker push  $OPENSHIFT_IMAGE_REGISTRY/$OPENSHIFT_NS/$IMAGE
@@ -102,10 +103,10 @@ docker push  $OPENSHIFT_IMAGE_REGISTRY/$OPENSHIFT_NS/$IMAGE
 oc set image-lookup eap8-myapp
 ```
 
-3. Deploy the example application using WildFly Helm charts
+3. Deploy the example application using EAP 8 Helm charts
 
 ```
-helm install eap8-myapp -f helm.yaml wildfly/wildfly
+helm install eap8-myapp -f helm.yaml jboss-eap/eap8
 ```
 
 4. Access the endpoint
