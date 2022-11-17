@@ -26,6 +26,7 @@ Scenario: Test preconfigure.sh
       | path     | /     |
       | port     | 8080  |
     Then XML file /opt/server/standalone/configuration/standalone.xml should contain value foo on XPath //*[local-name()='property' and @name="foo"]/@value
+    Then XML file /opt/eap/standalone/configuration/standalone.xml should contain value foo on XPath //*[local-name()='property' and @name="foo"]/@value
 
  Scenario: Test invalid layer
     Given failing s2i build http://github.com/openshift/openshift-jee-sample from . using master

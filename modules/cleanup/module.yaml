@@ -1,7 +1,11 @@
 schema_version: 1
 name: jboss.container.eap.cleanup
 version: '1.0'
-description: Cleanup in case JBOSS_HOME was created.
+description: Finalize installation. Create symlink from JBOSS_HOME to /opt/eap
 
+envs:
+    - name: JBOSS_HOME
+      value: /opt/server
 execute:
 - script: configure.sh
+  user: 185
