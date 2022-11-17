@@ -46,6 +46,9 @@ Feature: EAP basic tests
     Then container log should contain WFLYSRV0025
     Then XML file /opt/server/standalone/configuration/standalone.xml should have 0 elements on XPath  //*[local-name()='http-interface'][@security-realm="ManagementRealm"]
     Then XML file /opt/server/standalone/configuration/standalone.xml should contain value management-http-authentication on XPath  //*[local-name()='http-interface']/@http-authentication-factory
+    Then XML file /opt/eap/standalone/configuration/standalone.xml should have 0 elements on XPath  //*[local-name()='http-interface'][@security-realm="ManagementRealm"]
+    Then XML file /opt/eap/standalone/configuration/standalone.xml should contain value management-http-authentication on XPath  //*[local-name()='http-interface']/@http-authentication-factory
+    Then file /opt/eap/standalone/configuration/mgmt-users.properties should contain kabir
     And file /opt/server/standalone/configuration/mgmt-users.properties should contain kabir
 
   Scenario: No admin user, Management interface should be kept secured with elytron, management console should be disabled
