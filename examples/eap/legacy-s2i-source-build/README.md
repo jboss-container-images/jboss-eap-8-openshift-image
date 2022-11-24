@@ -23,6 +23,7 @@ build:
     channels:
       - org.jboss.eap.channels:eap-8.0-beta
  ...
+```
 
 High level view of the Helm Chart configuration.
 
