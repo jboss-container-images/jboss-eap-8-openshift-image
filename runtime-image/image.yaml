@@ -54,13 +54,13 @@ modules:
           - name: eap-modules
             path: ../modules
       install:
-          - name: jboss.container.util.pkg-update
           - name: jboss.container.openjdk.jdk
             version: "11"
           - name: jboss.container.java.jvm.bash
           - name: jboss.container.wildfly.dynamic-resources
           - name: jboss.container.wildfly.run
           - name: jboss.container.eap.cleanup
+          - name: jboss.container.util.pkg-update
 
 packages:
   manager: microdnf
