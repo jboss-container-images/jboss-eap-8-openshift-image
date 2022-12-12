@@ -65,7 +65,6 @@ modules:
           - name: eap-modules
             path: ../modules
       install:
-          - name: jboss.container.util.pkg-update
           - name: jboss.container.openjdk.jdk
             version: "11"
           - name: jboss.container.maven
@@ -75,6 +74,7 @@ modules:
           - name: jboss.container.wildfly.s2i.legacy
           - name: jboss.container.eap.s2i-eap.bash
           - name: jboss.container.eap.cleanup
+          - name: jboss.container.util.pkg-update
 
 packages:
   manager: microdnf
