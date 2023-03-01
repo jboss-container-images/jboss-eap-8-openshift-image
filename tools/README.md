@@ -22,7 +22,7 @@ Build a custom image with custom cloud FP
 sh ./build-custom-image-cloud-fp.sh /home/jdenise/workspaces/eap-cloud-galleon-pack  \
 /home/jdenise/Downloads/jboss-eap-8.0.0.Beta-redhat-99999-maven-repository.zip \
 
-docker run -it --rm --env=GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0-beta" --env=GALLEON_PROVISION_FEATURE_PACKS=org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack \
+docker run -it --rm --env=GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0" --env=GALLEON_PROVISION_FEATURE_PACKS=org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack \
 --env=GALLEON_PROVISION_LAYERS=cloud-server \
 jboss-eap-8-tech-preview/custom-cloud-fp-eap8-penjdk11-builder:latest \
 bash
@@ -34,7 +34,7 @@ sh ./build-custom-image.sh /home/jdenise/workspaces/eap-cloud-galleon-pack /home
 /home/jdenise/Downloads/jboss-eap-8.0.0.Beta-redhat-99999-maven-repository.zip \
 /home/jdenise/workspaces/wildfly-maven-plugin
 
-docker run -it --rm --env=GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0-beta" --env=GALLEON_PROVISION_FEATURE_PACKS=org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack \
+docker run -it --rm --env=GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0" --env=GALLEON_PROVISION_FEATURE_PACKS=org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack \
 --env=GALLEON_PROVISION_LAYERS=cloud-server \
 jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:dev \
 bash

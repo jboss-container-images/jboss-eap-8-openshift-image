@@ -99,7 +99,7 @@ oc start-build eap8-binary-build-app-build --from-dir target/server
 ```
 oc start-build eap8-binary-build-app-build --from-file target/ROOT.war --env GALLEON_PROVISION_LAYERS=jaxrs-server \
 --env GALLEON_PROVISION_FEATURE_PACKS="org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack" \
---env GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0-beta"
+--env GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0"
 ```
 
 5. Deploy the example application

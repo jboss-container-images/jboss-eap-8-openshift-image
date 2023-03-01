@@ -52,11 +52,11 @@ mkdir -p $tmpPath/docker/maven-repository/org/jboss/eap/cloud/eap-cloud-galleon-
 cp eap-cloud-galleon-pack/target/eap-cloud-galleon-pack-$cloudVersion.zip $tmpPath/docker/maven-repository/org/jboss/eap/cloud/eap-cloud-galleon-pack/$cloudVersion
 popd > /dev/null
 
-channelPath=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/*/)
+channelPath=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0/*/)
 channelVersion=${channelPath::-1}
 channelVersion=$(basename ${channelVersion})
 echo "Channel version is $channelVersion"
-sed -i "s|${origCloudVersion}|${cloudVersion}|" "${channelPath}/eap-8.0-beta-${channelVersion}-channel.yaml"
+sed -i "s|${origCloudVersion}|${cloudVersion}|" "${channelPath}/eap-8.0-${channelVersion}-channel.yaml"
 
 echo "Build JDK11 builder docker image"
 docker_file=$tmpPath/docker/Dockerfile

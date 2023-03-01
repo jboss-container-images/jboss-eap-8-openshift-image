@@ -13,7 +13,7 @@ Feature: Keycloak legacy tests
        | SSO_USE_LEGACY  | true |
        | SSO_REALM         | demo    |
        | SSO_URL           | http://localhost:8080/auth    |
-       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
        | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
        | GALLEON_PROVISION_LAYERS|cloud-default-config|
     Then container log should contain Existing other application-security-domain is extended with support for keycloak

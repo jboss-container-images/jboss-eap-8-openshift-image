@@ -48,8 +48,10 @@
                         <configuration>
                             <channels>
                                 <channel>
-                                    <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.0-beta</artifactId>
+                                    <manifest>
+                                        <groupId>org.jboss.eap.channels</groupId>
+                                        <artifactId>eap-8.0</artifactId>
+                                    </manifest>
                                 </channel>
                             </channels>
                             <feature-packs>
@@ -66,7 +68,7 @@
                             <extra-server-content-dirs>
                                 <extra-content>extra-content</extra-content>
                             </extra-server-content-dirs>
-                            <runtime-name>ROOT.war</runtime-name>
+                            <name>ROOT.war</name>
                         </configuration>
                         <executions>
                             <execution>

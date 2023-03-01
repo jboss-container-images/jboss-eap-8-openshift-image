@@ -10,6 +10,6 @@ build:
     galleonLayers:
       - jaxrs-server
     channels:
-      - org.jboss.eap.channels:eap-8.0-beta
+      - org.jboss.eap.channels:eap-8.0
 deploy:
   replicas: 1

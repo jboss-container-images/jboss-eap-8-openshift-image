@@ -23,7 +23,7 @@ Feature: OIDC tests
   Scenario: Provision oidc subsystem configuration, legacy.
     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-elytron-oidc-client-legacy with env and True using eap8-beta-dev
        | variable               | value                                            |
-       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
        | GALLEON_PROVISION_LAYERS | cloud-server,elytron-oidc-client |
        | GALLEON_PROVISION_FEATURE_PACKS|org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
 

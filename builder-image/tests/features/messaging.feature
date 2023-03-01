@@ -4,7 +4,7 @@ Feature: EAP messaging tests
 Scenario: Configure amq7 remote broker
     Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app with env and true using legacy-s2i-images
     | variable              | value                                   |
-    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
     | GALLEON_PROVISION_LAYERS | cloud-server |
     | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
     | MQ_SERVICE_PREFIX_MAPPING           | wf-app-amq7=TEST |
