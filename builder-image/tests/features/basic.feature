@@ -1,12 +1,12 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: EAP basic tests
 
   Scenario: Check that the legacy default config provisioned using galleon plugin works fine
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-default-config with env and True using eap8-beta-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-default-config with env and True using eap8-dev
    | variable                 | value           |
    | S2I_SERVER_DIR | server |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8-tech-preview/
+   Then container log should contain Running jboss-eap-8/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario:  Test ENV_FILES just to validate that there is no side effect
@@ -22,10 +22,10 @@ Feature: EAP basic tests
       | port     | 8080  |
 
   Scenario: Check if image version and release is printed on boot
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and True using eap8-beta-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and True using eap8-dev
    | variable                 | value           |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8-tech-preview/
+   Then container log should contain Running jboss-eap-8/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario:  Test basic deployment

@@ -2,7 +2,7 @@ build:
   uri: https://github.com/jboss-container-images/jboss-eap-8-openshift-image
   mode: s2i
   contextDir: examples/eap/legacy-s2i-source-build
-  ref: 8.0.0.Beta
+  ref: 8.0.0.GA
   s2i:
     featurePacks:
       - org.jboss.eap:wildfly-ee-galleon-pack

@@ -1,8 +1,8 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: EAP Legacy s2i tests
 
   Scenario: Test provisioning.xml file
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app-local-provisioning with env and True using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app-local-provisioning with env and True using eap8-dev
       | variable                             | value         |
       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
       | GALLEON_USE_LOCAL_FILE             | true  |
@@ -121,7 +121,7 @@ Scenario: Test external driver created during s2i.
       | port     | 8080  |
 
  Scenario: Multiple deployments legacy
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-multi-deployments-legacy with env and True using eap8-beta-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-multi-deployments-legacy with env and True using eap8-dev
    | variable                 | value           |
    | MAVEN_S2I_ARTIFACT_DIRS | app1/target,app2/target |
    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |

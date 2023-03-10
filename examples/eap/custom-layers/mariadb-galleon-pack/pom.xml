@@ -28,14 +28,14 @@
         <repository>
             <id>redhat-ga</id>
             <name>Redhat GA</name>
-            <url>https://maven.repository.redhat.com/techpreview/all</url>
+            <url>https://maven.repository.redhat.com/ga/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ee-galleon-pack</artifactId>
-            <version>8.0.0.Beta-redhat-20221006</version>
+            <version>8.0.0.GA-redhat-20221006</version>
             <type>zip</type>
         </dependency>
         <dependency>

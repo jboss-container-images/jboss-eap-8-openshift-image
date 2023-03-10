@@ -1,4 +1,4 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: Some elytron testing
 
 Scenario: Build elytron app

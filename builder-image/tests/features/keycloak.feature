@@ -1,13 +1,13 @@
 #IGNORE_TEST_RUN
 # Can't be run currently with current keycloak: org.jboss.modules.ModuleNotFoundException: org.picketbox
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: Keycloak legacy tests
 
    Scenario: deploys the keycloak example, provision the default config. The app project is expected to install the keycloak adapters inside the server.
      Given XML namespaces
        | prefix | url                          |
        | ns     | urn:jboss:domain:keycloak:1.2 |
-     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-keycloak-legacy using eap8-beta-dev
+     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-keycloak-legacy using eap8-dev
        | variable                   | value                                            |
        | ARTIFACT_DIR               | app-profile-jee/target,app-profile-jee-saml/target |
        | SSO_USE_LEGACY  | true |

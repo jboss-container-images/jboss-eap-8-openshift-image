@@ -1,11 +1,11 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: Vanilla EAP basic tests
 
  Scenario: Check if image version and release is printed on boot
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and True using eap8-beta-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and True using eap8-dev
    | variable                             | value         |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8-tech-preview/
+   Then container log should contain Running jboss-eap-8/
 
 Scenario:  Test basic deployment vanilla WildFly
     When container integ- is started with env
@@ -159,7 +159,7 @@ Scenario: Check if image shuts down with TERM signal
     And exactly 1 times container log should contain WFLYSRV0050
 
 Scenario: Test to ensure that maven is run with -Djava.net.preferIPv4Stack=true and user-supplied arguments, even when MAVEN_ARGS is overridden, and doesn't clear the local repository after the build
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and true using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and true using eap8-dev
        | variable          | value                                                                                  |
        | MAVEN_ARGS        | -e -Dcom.redhat.xpaas.repo.redhatga -Dcom.redhat.xpaas.repo.jbossorg -DskipTests package -Popenshift |
        | MAVEN_ARGS_APPEND | -Dfoo=bar                                                                              |

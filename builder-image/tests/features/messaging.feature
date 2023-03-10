@@ -1,4 +1,4 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: EAP messaging tests
 
 Scenario: Configure amq7 remote broker
@@ -57,7 +57,7 @@ Scenario: Configure amq7 remote broker
    Then container log should contain WFLYSRV0025
 
  Scenario: deploys the test-app-mdb app, then checks if it's deployed properly with Queues and Topics added
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-mdb with env and True using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-mdb with env and True using eap8-dev
     | variable              | value                                   |
     |  MQ_TOPICS       |  HELLOWORLDMDBTopic   |
     | MQ_QUEUES      | HELLOWORLDMDBQueue |

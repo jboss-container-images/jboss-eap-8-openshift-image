@@ -1,7 +1,7 @@
 build:
   uri: https://github.com/jboss-container-images/jboss-eap-8-openshift-image
   contextDir: examples/eap/s2i-source-build
-  ref: 8.0.0.Beta
+  ref: 8.0.0.GA
 deploy:
   replicas: 1
     
