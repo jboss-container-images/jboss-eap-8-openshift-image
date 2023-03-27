@@ -1,19 +1,19 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: EAP configured for datasources
 
 Scenario: Build image with server and datasource
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgres with env and true using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgres with env and true using eap8-dev
     | variable                 | value           |
-    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
     | GALLEON_USE_LOCAL_FILE | true |
     | POSTGRESQL_DRIVER_VERSION | 42.2.19 |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
     Then container log should contain WFLYSRV0025
 
   Scenario: Build image with server  and datasources
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle-legacy with env and true using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle-legacy with env and true using eap8-dev
     | variable                 | value           |
-    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
     | GALLEON_USE_LOCAL_FILE | true |
     | POSTGRESQL_DRIVER_VERSION | 42.2.19 |
     | ORACLE_DRIVER_VERSION | 19.3.0.0|
@@ -21,7 +21,7 @@ Scenario: Build image with server and datasource
     Then exactly 2 times container log should contain WFLYSRV0025:
 
  Scenario: Build image with server  and datasources
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using eap8-dev
     | variable                 | value           |
     | POSTGRESQL_DRIVER_VERSION | 42.2.19 |
     | ORACLE_DRIVER_VERSION | 19.3.0.0|

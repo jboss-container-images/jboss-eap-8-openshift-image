@@ -1,15 +1,15 @@
 #!/bin/bash
 #Ultra custom image with custom cloud-fp, custom eap maven-plugin, custom wildfly maven plugin.
-# Script to build the JDK11 and JDK17 S2I builder images containing the built cloud FP, EAP maven plugin and EAP 8 in a local maven repository
+# Script to build the JDK17 S2I builder image containing the built cloud FP, EAP maven plugin and EAP 8 in a local maven repository
 # 1) Build the cloud FPs
 # 2) Build the EAP Maven plugin
 # 2) Call this script
-# 3) the image jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:dev will be built.
+# 3) the image jboss-eap-8/custom-eap8-openjdk17-builder:dev will be built.
 
 function usage() {
 echo " "
 echo "Usage:"
-echo "  * First Build EAP S2I builder docker images, EAP cloud feature-pack and EAP maven plugin, download an EAP 8 builder maven repo (eg: jboss-eap-8.0.0.Beta-redhat-99999-maven-repository.zip)."
+echo "  * First Build EAP S2I builder docker images, EAP cloud feature-pack and EAP maven plugin, download an EAP 8 builder maven repo (eg: jboss-eap-8.0.0.GA-redhat-99999-maven-repository.zip)."
 echo "  * Then call: sh ./build-custom-image.sh <path to built cloud FP repo> <path to built EAP maven plugin repo> <path to maven repo zip>"
 echo " "
 exit 1
@@ -76,25 +76,25 @@ cp pom.xml $tmpPath/docker/maven-repository/org/wildfly/plugins/wildfly-maven-pl
 
 popd > /dev/null
 
-echo "Install channel org.jboss.eap.channels:eap-8.0-beta:1.0.0.Final-redhat-00001"
-mkdir -p $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001
-cp  $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/8.0.0.Beta-redhat-99999/wildfly-ee-galleon-pack-8.0.0.Beta-redhat-99999-channel.yaml $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001/eap-8.0-beta-1.0.0.Final-redhat-00001-channel.yaml
-cat <<EOF >> $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/1.0.0.Final-redhat-00001/eap-8.0-beta-1.0.0.Final-redhat-00001-channel.yaml
+echo "Install channel org.jboss.eap.channels:eap-8.0:1.0.0.Final-redhat-00001"
+mkdir -p $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0/1.0.0.Final-redhat-00001
+cp  $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/8.0.0.GA-redhat-99999/wildfly-ee-galleon-pack-8.0.0.GA-redhat-99999-channel.yaml $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0/1.0.0.Final-redhat-00001/eap-8.0-1.0.0.Final-redhat-00001-channel.yaml
+cat <<EOF >> $tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0/1.0.0.Final-redhat-00001/eap-8.0-1.0.0.Final-redhat-00001-channel.yaml
   - groupId: "org.jboss.eap.cloud"
     artifactId: "eap-cloud-galleon-pack"
     version: "$cloudVersion"
   - groupId: "org.jboss.eap"
     artifactId: "eap-datasources-galleon-pack"
-    version: "8.0.0.Beta-redhat-99999"
+    version: "8.0.0.GA-redhat-99999"
 EOF
 
 echo "Generate local maven metadata to resolve latest channel"
-local_metadata_file=$tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0-beta/maven-metadata-local.xml
+local_metadata_file=$tmpPath/docker/maven-repository/org/jboss/eap/channels/eap-8.0/maven-metadata-local.xml
 cat <<EOF > $local_metadata_file
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>org.jboss.eap.channels</groupId>
-  <artifactId>eap-8.0-beta</artifactId>
+  <artifactId>eap-8.0</artifactId>
   <versioning>
     <release>1.0.0.Final-redhat-00001</release>
     <versions>
@@ -104,25 +104,15 @@ cat <<EOF > $local_metadata_file
 </metadata>
 EOF
 
-echo "Build JDK11 builder docker image"
-docker_file=$tmpPath/docker/Dockerfile
-cat <<EOF > $docker_file
-  FROM jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest
-  ENV PROVISIONING_MAVEN_PLUGIN_VERSION=$pluginVersion
-  RUN mkdir -p /tmp/artifacts/m2
-  COPY --chown=jboss:root maven-repository /tmp/artifacts/m2
-EOF
-docker build -t jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:dev $tmpPath/docker
-
 echo "Build JDK17 builder docker image"
 cat <<EOF > $docker_file
-  FROM jboss-eap-8-tech-preview/eap8-openjdk17-builder-openshift-rhel8:latest
+  FROM jboss-eap-8/eap8-openjdk17-builder-openshift-rhel8:latest
   ENV PROVISIONING_MAVEN_PLUGIN_VERSION=$pluginVersion
   RUN mkdir -p /tmp/artifacts/m2
   COPY --chown=jboss:root maven-repository /tmp/artifacts/m2
 EOF
-docker build -t jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:dev $tmpPath/docker
+docker build -t jboss-eap-8/custom-eap8-openjdk17-builder:dev $tmpPath/docker
 
 rm -rf $tmpPath
 
-echo "Images   jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:dev and jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:dev have been created"
+echo "Image jboss-eap-8/custom-eap8-openjdk17-builder:dev has been created"

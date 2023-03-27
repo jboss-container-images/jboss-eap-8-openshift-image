@@ -1,6 +1,5 @@
 #!/bin/bash
-JDK11_BUILDER_IMAGE=jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:latest
-JDK17_BUILDER_IMAGE=jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:latest
+JDK17_BUILDER_IMAGE=jboss-eap-8/custom-eap8-openjdk17-builder:latest
 
 tmpPath=/tmp/jboss-eap-8-images-testing
 
@@ -23,17 +22,8 @@ for feature in $imageDir/all-tests/features/*.feature; do
     featureFileName="$(basename -- $feature)"
     featureFile="$imageDir/tests/features/$featureFileName"
     cp "$feature" "$featureFile"
-    logFilejdk11=$logsDir/$featureFileName.jdk11.log
     logFilejdk17=$logsDir/$featureFileName.jdk17.log
     pushd "$imageDir" > /dev/null
-      echo "RUNNING $featureFileName with JDK11"
-      cekit --redhat test --image=$JDK11_BUILDER_IMAGE behave > $logFilejdk11 2>&1
-      RESULT=$?
-      docker system prune -f
-      if [ $RESULT != 0 ]; then
-        echo "*** ERROR for $featureFileName, check log file $logFilejdk11"
-        testError=true
-      fi
       echo "RUNNING $featureFileName with JDK17"
       cekit --redhat test --image=$JDK17_BUILDER_IMAGE behave > $logFilejdk17 2>&1
       RESULT=$?

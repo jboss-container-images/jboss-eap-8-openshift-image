@@ -16,7 +16,7 @@ High level view of the EAP Maven plugin configuration.
 * `org.jboss.eap:wildfly-ee-galleon-pack`
 * `org.jboss.eap.cloud:eap-cloud-galleon-pack`
 
-NB, the versions of the feature-packs are retrieved from the latest EAP8 channel: `org.jboss.eap.channels:eap-8.0-beta`
+NB, the versions of the feature-packs are retrieved from the latest EAP8 channel: `org.jboss.eap.channels:eap-8.0`
 
 ## Galleon layers
 

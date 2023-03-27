@@ -15,5 +15,5 @@ osbs:
         pulp_repos: true
         signing_intent: release
   repository:
-    name: containers/jboss-eap8-beta-openjdk17-builder-openshift 
+    name: containers/jboss-eap8-openjdk17-builder-openshift 
     branch: jb-eap-8.0-rhel-8

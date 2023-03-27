@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8"
+name: &imgName "jboss-eap-8/eap8-openjdk11-builder-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 8 OpenShift S2I Builder image."
-version: &imgVersion "1.0.0.Beta"
+version: &imgVersion "1.0.0.GA"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
@@ -13,7 +13,7 @@ labels:
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap8-beta-openjdk11-builder-openshift-container"
+      value: "jboss-eap8-openjdk11-builder-openshift-container"
     - name: io.k8s.description
       value: "Platform for building and running Jakarta EE applications on JBoss EAP 8"
     - name: io.k8s.display-name
@@ -44,7 +44,7 @@ envs:
       value: org.jboss.eap.plugins
       # TODO To be replaced with actual productized plugin version
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 1.0.0.Beta6-redhat-00001
+      value: 1.0.0.Beta7-redhat-00001
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
@@ -61,7 +61,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.12
+              ref: 0.27.16
           - name: eap-modules
             path: ../modules
       install:

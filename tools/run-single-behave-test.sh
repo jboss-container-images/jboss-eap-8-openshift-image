@@ -14,8 +14,8 @@ if [ ! -f "../builder-image/tests/features/$1" ]; then
 fi
 
 
-JDK11_BUILDER_IMAGE=jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:latest
-JDK17_BUILDER_IMAGE=jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:latest
+JDK11_BUILDER_IMAGE=jboss-eap-8/custom-eap8-openjdk11-builder:latest
+JDK17_BUILDER_IMAGE=jboss-eap-8/custom-eap8-openjdk17-builder:latest
 
 tmpPath=/tmp/jboss-eap-8-images-testing
 

@@ -1,10 +1,10 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: EAP messaging tests
 
 Scenario: Configure amq7 remote broker
     Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app with env and true using legacy-s2i-images
     | variable              | value                                   |
-    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+    | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
     | GALLEON_PROVISION_LAYERS | cloud-server |
     | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
     | MQ_SERVICE_PREFIX_MAPPING           | wf-app-amq7=TEST |
@@ -57,7 +57,7 @@ Scenario: Configure amq7 remote broker
    Then container log should contain WFLYSRV0025
 
  Scenario: deploys the test-app-mdb app, then checks if it's deployed properly with Queues and Topics added
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-mdb with env and True using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-mdb with env and True using eap8-dev
     | variable              | value                                   |
     |  MQ_TOPICS       |  HELLOWORLDMDBTopic   |
     | MQ_QUEUES      | HELLOWORLDMDBQueue |

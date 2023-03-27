@@ -48,8 +48,10 @@
                         <configuration>
                             <channels>
                                 <channel>
-                                    <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.0-beta</artifactId>
+                                    <manifest>
+                                        <groupId>org.jboss.eap.channels</groupId>
+                                        <artifactId>eap-8.0</artifactId>
+                                    </manifest>
                                 </channel>
                             </channels>
                             <!-- some tests check for the provisioned galleon layers -->
@@ -69,7 +71,7 @@
                                 <jboss-fork-embedded>${plugin.fork.embedded}</jboss-fork-embedded>
                                 <jboss-maven-dist/>
                             </galleon-options>
-                            <runtime-name>ROOT.war</runtime-name>
+                            <name>ROOT.war</name>
                         </configuration>
                         <executions>
                             <execution>

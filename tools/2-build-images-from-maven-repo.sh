@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to build the JDK11 and JDK17 S2I builder images containing all EAP 8 bits in a local maven repository.
+# Script to build the JDK17 S2I builder images containing all EAP 8 bits in a local maven repository.
 
 function usage() {
 echo " "
@@ -29,26 +29,24 @@ cp ocp-settings.xml $tmpPath/docker/ocp-settings.xml
 eapVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/*/)
 eapVersion=${eapVersion::-1}
 eapVersion=$(basename ${eapVersion})
+
+
+pluginVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/plugins/eap-maven-plugin/*/)
+pluginVersion=${pluginVersion::-1}
+pluginVersion=$(basename ${pluginVersion})
+
 echo "EAP8 version is $eapVersion"
-
-echo "Build JDK11 builder docker image"
 docker_file=$tmpPath/docker/Dockerfile
-cat <<EOF > $docker_file
-  FROM jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest
-  COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
-  COPY --chown=jboss:root maven-repository /maven-repository
-EOF
-docker build -t jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:latest $tmpPath/docker
-
 echo "Build JDK17 builder docker image"
 cat <<EOF > $docker_file
-  FROM jboss-eap-8-tech-preview/eap8-openjdk17-builder-openshift-rhel8:latest
+  FROM jboss-eap-8/eap8-openjdk17-builder-openshift-rhel8:latest
+  ENV PROVISIONING_MAVEN_PLUGIN_VERSION=$pluginVersion
   COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
   COPY --chown=jboss:root maven-repository /maven-repository
 EOF
-docker build -t jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:latest $tmpPath/docker
+docker build -t jboss-eap-8/custom-eap8-openjdk17-builder:latest $tmpPath/docker
 docker system prune -f
 
 rm -rf $tmpPath
 
-echo "Images   jboss-eap-8-tech-preview/custom-eap8-openjdk11-builder:latest and jboss-eap-8-tech-preview/custom-eap8-openjdk17-builder:latest have been created"
+echo "Image jboss-eap-8/custom-eap8-openjdk17-builder:latest has been created"

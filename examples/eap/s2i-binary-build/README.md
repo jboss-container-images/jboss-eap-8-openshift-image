@@ -79,7 +79,7 @@ oc secrets link builder 1234567-myserviceaccount-pull-secret --for=pull
 2. Import the EAP 8 s2i Builder image in Openshift
 
 ```
-oc import-image jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest --from=registry.redhat.io/jboss-eap-8-tech-preview/eap8-openjdk11-builder-openshift-rhel8:latest --confirm
+oc import-image jboss-eap-8/eap8-openjdk11-builder-openshift-rhel8:latest --from=registry.redhat.io/jboss-eap-8/eap8-openjdk11-builder-openshift-rhel8:latest --confirm
 ```
 
 3. Create the binary build.
@@ -99,7 +99,7 @@ oc start-build eap8-binary-build-app-build --from-dir target/server
 ```
 oc start-build eap8-binary-build-app-build --from-file target/ROOT.war --env GALLEON_PROVISION_LAYERS=jaxrs-server \
 --env GALLEON_PROVISION_FEATURE_PACKS="org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack" \
---env GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0-beta"
+--env GALLEON_PROVISION_CHANNELS="org.jboss.eap.channels:eap-8.0"
 ```
 
 5. Deploy the example application

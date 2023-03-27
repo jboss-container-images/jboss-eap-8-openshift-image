@@ -1,11 +1,11 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: Some elytron testing
 
 Scenario: Build elytron app
     Given s2i build https://github.com/wildfly/wildfly-s2i from test/test-app-web-security with env and true using legacy-s2i-images-ee-10-test-apps
        | variable                   | value       |
        | GALLEON_PROVISION_LAYERS | datasources-web-server |
-       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0-beta |
+       | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.0 |
        | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
      Then container log should contain WFLYSRV0025
 

@@ -1,8 +1,8 @@
-@jboss-eap-8-tech-preview
+@jboss-eap-8
 Feature: Openshift EAP jgroups
 
   Scenario: Build server image
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-clustering with env and true using eap8-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-clustering with env and true using eap8-dev
     | variable                             | value         |
     ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
     Then exactly 2 times container log should contain WFLYSRV0025:

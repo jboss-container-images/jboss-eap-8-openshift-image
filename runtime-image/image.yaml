@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap8-openjdk11-runtime-openshift-rhel8"
+name: &imgName "jboss-eap-8/eap8-openjdk11-runtime-openshift-rhel8"
 description: "The JBoss EAP 8 OpenJDK 11 runtime image"
-version: &imgVersion "1.0.0.Beta"
+version: &imgVersion "1.0.0.GA"
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
@@ -11,7 +11,7 @@ labels:
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap8-beta-openjdk11-runtime-openshift-container"
+      value: "jboss-eap8-openjdk11-runtime-openshift-container"
     - name: "io.k8s.description"
       value: "Base image to run an EAP 8 server and application"
     - name: "io.k8s.display-name"
@@ -50,7 +50,7 @@ modules:
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.27.12
+              ref: 0.27.16
           - name: eap-modules
             path: ../modules
       install:
