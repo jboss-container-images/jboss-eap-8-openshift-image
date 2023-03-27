@@ -29,11 +29,18 @@ cp ocp-settings.xml $tmpPath/docker/ocp-settings.xml
 eapVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/*/)
 eapVersion=${eapVersion::-1}
 eapVersion=$(basename ${eapVersion})
+
+
+pluginVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/plugins/eap-maven-plugin/*/)
+pluginVersion=${pluginVersion::-1}
+pluginVersion=$(basename ${pluginVersion})
+
 echo "EAP8 version is $eapVersion"
 docker_file=$tmpPath/docker/Dockerfile
 echo "Build JDK17 builder docker image"
 cat <<EOF > $docker_file
   FROM jboss-eap-8/eap8-openjdk17-builder-openshift-rhel8:latest
+  ENV PROVISIONING_MAVEN_PLUGIN_VERSION=$pluginVersion
   COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
   COPY --chown=jboss:root maven-repository /maven-repository
 EOF
