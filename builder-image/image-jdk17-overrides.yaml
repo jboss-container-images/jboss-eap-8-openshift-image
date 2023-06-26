@@ -19,4 +19,3 @@ modules:
             version: "17"
           - name: jboss.container.maven
             version: "8.6.3.6.17"
-          - name: jboss.container.java.singleton-jdk
