@@ -16,6 +16,8 @@ mv $imageDir/tests/ $imageDir/all-tests
 mkdir -p $imageDir/tests/features
 mkdir -p $logsDir
 
+cekit --version 
+
 cp -r $imageDir/all-tests/features/scripts $imageDir/tests/features
 for feature in $imageDir/all-tests/features/*.feature; do
   if ! grep -q "#IGNORE_TEST_RUN" "$feature"; then
@@ -25,7 +27,7 @@ for feature in $imageDir/all-tests/features/*.feature; do
     logFilejdk17=$logsDir/$featureFileName.jdk17.log
     pushd "$imageDir" > /dev/null
       echo "RUNNING $featureFileName with JDK17"
-      cekit --redhat test --image=$JDK17_BUILDER_IMAGE behave > $logFilejdk17 2>&1
+      cekit --redhat test --image=$JDK17_BUILDER_IMAGE --overrides=image-jdk17-overrides.yaml behave > $logFilejdk17 2>&1
       RESULT=$?
       docker system prune -f
       if [ $RESULT != 0 ]; then
