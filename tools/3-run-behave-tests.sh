@@ -1,5 +1,13 @@
 #!/bin/bash
-JDK17_BUILDER_IMAGE=jboss-eap-8/custom-eap8-openjdk17-builder:latest
+
+xp=${1:-"eap8"}
+
+if [ "$xp" = "xp5" ]; then
+ echo "XP5 tests is enabled, running XP5 tests only"
+ JDK17_BUILDER_IMAGE=jboss-eap-8/custom-eap8-xp5-openjdk17-builder:latest
+else
+ JDK17_BUILDER_IMAGE=jboss-eap-8/custom-eap8-openjdk17-builder:latest
+fi
 
 tmpPath=/tmp/jboss-eap-8-images-testing
 
@@ -20,6 +28,11 @@ cekit --version
 
 cp -r $imageDir/all-tests/features/scripts $imageDir/tests/features
 for feature in $imageDir/all-tests/features/*.feature; do
+  if [ "$xp" = "xp5" ]; then
+    if ! grep -q "@xp5" "$feature"; then
+      continue
+    fi
+  fi
   if ! grep -q "#IGNORE_TEST_RUN" "$feature"; then
     featureFileName="$(basename -- $feature)"
     featureFile="$imageDir/tests/features/$featureFileName"

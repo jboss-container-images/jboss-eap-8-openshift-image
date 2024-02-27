@@ -1,6 +1,6 @@
 @jboss-eap-8
 Feature: Vanilla EAP basic tests
-@wip
+
  Scenario: Check if image version and release is printed on boot
    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and True using eap8-dev
    | variable                             | value         |
@@ -23,26 +23,26 @@ Scenario: Zero port offset in galleon provisioned configuration with vanilla wil
        | PORT_OFFSET                 | 1000            |
     Then container log should contain WFLYSRV0025
     And container log should contain -Djboss.socket.binding.port-offset=1000
-@wip
+
 # CLOUD-4173: we need to ensure jboss.tx.node.id doesn't go beyond 23 chars
 Scenario: Check that long node names are truncated to 23 characters for the jboss.tx.node.id property
     When container integ- is started with env
        | variable  | value                      |
        | NODE_NAME | abcdefghijklmnopqrstuvwxyz |
     Then container log should contain -Djboss.node.name=abcdefghijklmnopqrstuvwxyz -Djboss.tx.node.id=defghijklmnopqrstuvwxyz
-@wip
+
   Scenario: Check that node name is used
     When container integ- is started with env
        | variable  | value                      |
        | NODE_NAME | abcdefghijk                |
     Then container log should contain -Djboss.node.name=abcdefghijk -Djboss.tx.node.id=abcdefghijk
-@wip
+
 Scenario: Check that long node names are truncated to 23 characters for the jboss.tx.node.id property
     When container integ- is started with env
        | variable  | value                      |
        | JBOSS_NODE_NAME | abcdefghijklmnopqrstuvwxyz |
     Then container log should contain -Djboss.node.name=abcdefghijklmnopqrstuvwxyz -Djboss.tx.node.id=defghijklmnopqrstuvwxyz
-@wip
+
 Scenario: Check that node name is used
     When container integ- is started with env
        | variable  | value                      |
