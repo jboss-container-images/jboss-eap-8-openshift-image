@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "github>konflux-ci/mintmaker//config/renovate/renovate.json"
+    ],
+    "dockerfile": {
+      "fileMatch": [
+          "container-images/jdk21/builder-image/Dockerfile"
+      ],
+      "postUpgradeTasks": {
+        "commands": ["rpm-lockfile-prototype container-images/jdk21/builder-image/rpms.in.yaml"],
+        "fileFilters": ["container-images/jdk21/builder-image/rpms.lock.yaml"]
+      }
+    }
+}

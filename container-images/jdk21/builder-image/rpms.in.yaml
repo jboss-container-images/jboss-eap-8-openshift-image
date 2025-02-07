@@ -1,0 +1,19 @@
+contentOrigin:
+  repofiles:
+    - ./ubi.repo
+arches:
+  #- aarch64
+  - x86_64
+  #- ppc64le
+  #- s390x
+packages:
+  - shadow-utils
+  - java-21-openjdk-devel
+  - maven-openjdk21
+  - findutils 
+  - rsync
+  - tar 
+  - hostname 
+  - jq 
+  - vim-minimal 
+  - unzip
