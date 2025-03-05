@@ -68,6 +68,9 @@ Feature: EAP extensions tests
     Then container log should contain TEST_ERROR_MESSAGE
     And container log should not contain WFLYSRV0010: Deployed "ROOT.war" (runtime-name : "ROOT.war")
 
+  # This test is too fragile when we are disabling SCRIPT_INVOKER (that is unsupported).
+  # Fragility comes from the fact that no java process is started in the test framework look for existing process. 
+  @ignore
   Scenario: Test preconfigure.sh fails in bash
     When container integ- is started with env
       | variable                     | value         |
@@ -86,6 +89,9 @@ Feature: EAP extensions tests
     And container log should not contain WFLYSRV0010: Deployed "ROOT.war" (runtime-name : "ROOT.war")
     And container log should contain Error, server failed to configure. Can't proceed with custom extensions script
 
+  # This test is too fragile when we are disabling SCRIPT_INVOKER (that is unsupported).
+  # Fragility comes from the fact that no java process is started in the test framework look for existing process. 
+  @ignore 
   Scenario: Test preconfigure.sh fails in CLI script
     When container integ- is started with env
       | variable                     | value         |
@@ -173,6 +179,9 @@ Feature: EAP extensions tests
     And container log should contain TEST_ERROR_MESSAGE
     And container log should not contain WFLYSRV0010: Deployed "ROOT.war" (runtime-name : "ROOT.war")
 
+  # This test is too fragile when we are disabling SCRIPT_INVOKER (that is unsupported).
+  # Fragility comes from the fact that no java process is started in the test framework look for existing process. 
+  @ignore 
   Scenario: Test postconfigure.sh fails in bash
     When container integ- is started with env
       | variable                     | value         |
@@ -193,6 +202,9 @@ Feature: EAP extensions tests
     And container log should contain Shutting down in response to management operation 'shutdown'
     And container log should not contain WFLYSRV0010: Deployed "ROOT.war" (runtime-name : "ROOT.war")
 
+  # This test is too fragile when we are disabling SCRIPT_INVOKER (that is unsupported).
+  # Fragility comes from the fact that no java process is started in the test framework look for existing process. 
+  @ignore 
   Scenario: Test postconfigure.sh fails in CLI script
     When container integ- is started with env
       | variable                     | value         |
