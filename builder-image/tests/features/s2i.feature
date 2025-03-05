@@ -70,6 +70,7 @@ Feature: EAP s2i tests
       | path                  | /create/1               |
       | port                  | 8080                                    |
       | expected_phrase       | 1 created                               |
+      | timeout               | 10                                      |
     Then check that page is served
       | property              | value                                   |
       | path                  | /isInCache/1            |
