@@ -7,7 +7,7 @@ labels:
     - name: "org.jboss.product"
       value: "eap81-openjdk21-runtime"
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk21-runtime-openshift-container"
+      value: "jboss-eap81-beta-openjdk21-runtime-openshift-container"
 
 envs:
     - name: IMAGE_NAME

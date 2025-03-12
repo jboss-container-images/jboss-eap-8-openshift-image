@@ -11,7 +11,7 @@ labels:
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk17-runtime-openshift-container"
+      value: "jboss-eap81-beta-openjdk17-runtime-openshift-container"
     - name: "io.k8s.description"
       value: "Base image to run an EAP 8.1 server and application"
     - name: "io.k8s.display-name"

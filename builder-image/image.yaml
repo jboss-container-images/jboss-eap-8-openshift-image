@@ -13,7 +13,7 @@ labels:
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk17-builder-openshift-container"
+      value: "jboss-eap81-beta-openjdk17-builder-openshift-container"
     - name: io.k8s.description
       value: "Platform for building and running Jakarta EE applications on JBoss EAP 8.1"
     - name: io.k8s.display-name
