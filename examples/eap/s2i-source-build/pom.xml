@@ -63,7 +63,7 @@
                     <galleon-options>
                         <jboss-fork-embedded>true</jboss-fork-embedded>
                     </galleon-options>
-                    <runtime-name>ROOT.war</runtime-name>
+                    <name>ROOT.war</name>
                 </configuration>
                 <executions>
                     <execution>
