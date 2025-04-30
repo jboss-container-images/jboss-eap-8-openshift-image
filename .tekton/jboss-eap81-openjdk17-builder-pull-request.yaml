@@ -606,7 +606,8 @@ spec:
       optional: true
     - name: netrc
       optional: true
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-jboss-eap81-openjdk17-builder
   workspaces:
   - name: git-auth
     secret:
