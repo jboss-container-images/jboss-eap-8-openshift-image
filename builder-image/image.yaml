@@ -43,7 +43,7 @@ envs:
     - name: PROVISIONING_MAVEN_PLUGIN_GROUP_ID
       value: org.jboss.eap.plugins
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 2.0.0.Beta1-redhat-00011
+      value: 2.0.0.Final-redhat-00002
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
