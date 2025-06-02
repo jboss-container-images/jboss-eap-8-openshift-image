@@ -1,11 +1,11 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap81-openjdk21-builder-openshift-rhel9"
+name: &imgName "jboss-eap-8/eap81-openjdk21-builder-openshift-rhel9"
 labels:
     - name: "org.jboss.product"
       value: "eap81-openjdk21-builder"
     - name: "com.redhat.component"
-      value: "jboss-eap81-beta-openjdk21-builder-openshift-container"
+      value: "jboss-eap81-openjdk21-builder-openshift-container"
     - name: name
       value: *imgName
 
