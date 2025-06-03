@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap81-openjdk17-builder-openshift-rhel9"
+name: &imgName "jboss-eap-8/eap81-openjdk17-builder-openshift-rhel9"
 description: "Red Hat JBoss Enterprise Application Platform 8.1 OpenShift S2I Builder image."
-version: &imgVersion "1.0.0.Beta"
+version: &imgVersion "1.0.0.GA"
 from: "registry.access.redhat.com/ubi9/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
@@ -13,7 +13,7 @@ labels:
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap81-beta-openjdk17-builder-openshift-container"
+      value: "jboss-eap81-openjdk17-builder-openshift-container"
     - name: io.k8s.description
       value: "Platform for building and running Jakarta EE applications on JBoss EAP 8.1"
     - name: io.k8s.display-name
@@ -43,7 +43,7 @@ envs:
     - name: PROVISIONING_MAVEN_PLUGIN_GROUP_ID
       value: org.jboss.eap.plugins
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 2.0.0.Final-redhat-00003
+      value: 2.0.0.Final-redhat-00004
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
