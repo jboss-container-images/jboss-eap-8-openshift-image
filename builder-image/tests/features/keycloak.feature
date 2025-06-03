@@ -4,7 +4,7 @@ Feature: Keycloak saml tests
      Given XML namespaces
        | prefix | url                          |
        | ns     | urn:jboss:domain:keycloak:1.4 |
-     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-keycloak-saml using eap81-beta-dev
+     Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-keycloak-saml using eap81-dev
        | variable                   | value                 |
 
    Scenario: Enable keycloak automatic registration.

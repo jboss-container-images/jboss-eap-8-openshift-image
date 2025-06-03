@@ -3,7 +3,7 @@
 Feature: EAP configured for datasources
 
 Scenario: Build image with server and datasource
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgres with env and true using eap81-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgres with env and true using eap81-dev
     | variable                 | value           |
     | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.1 |
     | GALLEON_USE_LOCAL_FILE | true |
@@ -12,7 +12,7 @@ Scenario: Build image with server and datasource
     Then container log should contain WFLYSRV0025
 
   Scenario: Build image with server  and datasources
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle-legacy with env and true using eap81-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle-legacy with env and true using eap81-dev
     | variable                 | value           |
     | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.1 |
     | GALLEON_USE_LOCAL_FILE | true |
@@ -22,7 +22,7 @@ Scenario: Build image with server and datasource
     Then exactly 2 times container log should contain WFLYSRV0025:
 
  Scenario: Build image with server  and datasources
-    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using eap81-beta-dev
+    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-postgresql-oracle with env and true using eap81-dev
     | variable                 | value           |
     | POSTGRESQL_DRIVER_VERSION | 42.2.19 |
     | ORACLE_DRIVER_VERSION | 23.6.0.24.10|
