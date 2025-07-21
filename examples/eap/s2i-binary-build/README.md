@@ -79,7 +79,7 @@ oc secrets link builder 1234567-myserviceaccount-pull-secret --for=pull
 2. Import the EAP 8 s2i Builder image in Openshift
 
 ```
-oc import-image registry.redhat.io/jboss-eap-8-tech-preview/eap81-openjdk17-builder-openshift-rhel9:latest --from=registry.redhat.io/jboss-eap-8-tech-preview/eap81-openjdk17-builder-openshift-rhel9:latest --confirm
+oc import-image registry.redhat.io/jboss-eap-8/eap81-openjdk17-builder-openshift-rhel9:latest --from=registry.redhat.io/jboss-eap-8/eap81-openjdk17-builder-openshift-rhel9:latest --confirm
 ```
 
 3. Create the binary build.

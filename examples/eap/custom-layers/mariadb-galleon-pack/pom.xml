@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ee-galleon-pack</artifactId>
-            <version>8.1.0.Beta-redhat-00007</version>
+            <version>8.1.0.GA-redhat-00013</version>
             <type>zip</type>
             <exclusions>
                 <exclusion>
@@ -55,7 +55,7 @@
             <plugin>
                 <groupId>org.wildfly.galleon-plugins</groupId>
                 <artifactId>wildfly-galleon-maven-plugin</artifactId>
-                <version>7.3.1.Final-redhat-00002</version>
+                <version>7.3.1.Final-redhat-00003</version>
                 <executions>
                     <execution>
                         <id>mariadb-galleon-pack-build</id>
