@@ -4,7 +4,7 @@ name: &imgName "jboss-eap-8/eap8-openjdk21-builder-openshift-rhel9"
 # This OSBS Base Image is designed and engineered to be the base layer for
 # Red Hat products. This base image is only supported for approved Red Hat
 # products. This image is maintained by Red Hat and updated regularly.
-from: registry.redhat.io/rhel9-osbs/osbs-ubi9-minimal
+from: registry.redhat.io/ubi9/ubi-minimal
 labels:
     - name: "org.jboss.product"
       value: "eap8-openjdk21-builder"
