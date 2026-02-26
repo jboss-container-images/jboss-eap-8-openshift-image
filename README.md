@@ -5,15 +5,15 @@ This project defines Images allowing you to build and deploy EAP 8 applications 
 
 EAP 8 S2I (Source-To-Image) builder images:
 
-* `jboss-eap-8/eap8-openjdk11-builder-openshift-rhel8`
+* `jboss-eap-8/eap81-openjdk17-builder-openshift-rhel9`
 
-* `jboss-eap-8/eap8-openjdk17-builder-openshift-rhel8`
+* `jboss-eap-8/eap81-openjdk21-builder-openshift-rhel9`
 
 EAP 8 runtime images:
 
-* `jboss-eap-8/eap8-openjdk11-runtime-openshift-rhel8`
+* `jboss-eap-8/eap81-openjdk17-runtime-openshift-rhel9`
 
-* `jboss-eap-8/eap8-openjdk17-runtime-openshift-rhel8`
+* `jboss-eap-8/eap81-openjdk21-runtime-openshift-rhel9`
 
 ----
 **NOTE**
