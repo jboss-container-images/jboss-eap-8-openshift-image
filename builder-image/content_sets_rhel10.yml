@@ -1,0 +1,12 @@
+x86_64:
+  - rhel-10-for-x86_64-baseos-rpms
+  - rhel-10-for-x86_64-appstream-rpms
+s390x:
+  - rhel-10-for-s390x-baseos-rpms
+  - rhel-10-for-s390x-appstream-rpms
+ppc64le:
+  - rhel-10-for-ppc64le-baseos-rpms
+  - rhel-10-for-ppc64le-appstream-rpms
+aarch64:
+  - rhel-10-for-aarch64-baseos-rpms
+  - rhel-10-for-aarch64-appstream-rpms

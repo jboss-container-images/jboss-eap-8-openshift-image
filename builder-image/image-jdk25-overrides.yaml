@@ -1,11 +1,11 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8/eap81-openjdk21-builder-openshift-rhel9"
+name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk25-builder-openshift-rhel10"
 labels:
     - name: "org.jboss.product"
-      value: "eap81-openjdk21-builder"
+      value: "eap82-openjdk25-builder"
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk21-builder-openshift-container"
+      value: "jboss-eap82-beta-openjdk25-builder-openshift-container"
     - name: name
       value: *imgName
 
@@ -16,6 +16,6 @@ envs:
 modules:
       install:
           - name: jboss.container.openjdk.jdk
-            version: "21"
+            version: "25"
           - name: jboss.container.maven
-            version: "3.8.21"
+            version: "3.9.25"

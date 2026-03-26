@@ -4,7 +4,7 @@
 Feature: Openshift XP tests
 
   Scenario: Check that the legacy default config provisioned using galleon plugin works fine
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/xp/test-app-default-config with env and True using eap81-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/xp/test-app-default-config with env and True using eap82-dev
    | variable                 | value           |
    | S2I_SERVER_DIR | server |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
@@ -21,7 +21,7 @@ Feature: Openshift XP tests
     Then XML file /opt/server/standalone/configuration/standalone.xml should contain value 88 on XPath //*[local-name()='config-source' and @name='config-map']/@ordinal
 
 Scenario: Check that trimmed server provisioned using galleon plugin works fine
-   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/xp/test-app with env and True using eap81-dev
+   Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/xp/test-app with env and True using eap82-dev
    | variable                 | value           |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
    Then container log should contain Running jboss-eap-8/
@@ -41,7 +41,7 @@ Scenario: Check with env based legacy configuration
    | variable                 | value           |
    | GALLEON_PROVISION_LAYERS | cloud-server, microprofile-config |
    | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap.xp:wildfly-galleon-pack,org.jboss.eap.xp.cloud:eap-xp-cloud-galleon-pack |
-   | GALLEON_PROVISION_CHANNELS | org.jboss.eap.channels:eap-8.1,org.jboss.eap.channels:eap-xp-6.0 |  
+   | GALLEON_PROVISION_CHANNELS | org.jboss.eap.channels:eap-8.2,org.jboss.eap.channels:eap-xp-6.0 |  
    Then container log should contain Running jboss-eap-8/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
