@@ -1,15 +1,15 @@
-# Building an EAP 8.1 application image using EAP 8.1 S2I legacy source build
+# Building an EAP 8.2 application image using EAP 8.2 S2I legacy source build
 
 In this example we are building and deploying to OpenShift an application that has been migrated to use Jakarta EE 10 
 but has not been updated to use the [EAP Maven Plugin](https://github.com/jbossas/eap-maven-plugin).
 
 # Use-cases
 
-* User wants to keep the EAP 7.4.x S2I workflow. Start from a github source repository, use latest released EAP 8.1 artifacts and images.
+* User wants to keep the EAP 7.4.x S2I workflow. Start from a github source repository, use latest released EAP 8.2 artifacts and images.
 
 # Helm Chart provisioning configuration
 
-EAP 8.1 provisioning configuration (feature-packs, layers and channels) is defined in EAP 8.1 Helm Chart yaml file.
+EAP 8.2 provisioning configuration (feature-packs, layers and channels) is defined in EAP 8.2 Helm Chart yaml file.
 
 ```
 ...
@@ -21,7 +21,7 @@ build:
     galleonLayers:
       - jaxrs-server
     channels:
-      - org.jboss.eap.channels:eap-8.1
+      - org.jboss.eap.channels:eap-8.2
  ...
 ```
 
@@ -32,7 +32,7 @@ High level view of the Helm Chart configuration.
 * `org.jboss.eap:wildfly-ee-galleon-pack`
 * `org.jboss.eap.cloud:eap-cloud-galleon-pack`
 
-NB, the versions of the feature-packs are retrieved from the latest EAP 8.1 channel: `org.jboss.eap.channels:eap-8.1`
+NB, the versions of the feature-packs are retrieved from the latest EAP 8.2 channel: `org.jboss.eap.channels:eap-8.2`
 
 ## Galleon layers
 
@@ -54,7 +54,7 @@ Extra content packaged inside the provisioned server
 
 Technologies required to build and deploy this example
 
-* Helm chart for EAP 8.1 `jboss-eap/eap81`.
+* Helm chart for EAP 8.2 `jboss-eap/eap82`.
 
 # Pre-requisites
 
@@ -66,7 +66,7 @@ Technologies required to build and deploy this example
 
 * You have installed Helm. Please refer to [Installing Helm page](https://helm.sh/docs/intro/install/) to install Helm in your environment
 
-* You have installed the repository for the Helm charts for EAP 8.1
+* You have installed the repository for the Helm charts for EAP 8.2
 
  ```
 helm repo add jboss-eap https://jbossas.github.io/eap-charts/
@@ -74,7 +74,7 @@ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
 
 # Example steps
 
-1. Setup to pull EAP 8.1 s2i builder and runtime images in Openshift [only required for on-premise installation of OpenShift, not needed for OpenShift Sandbox]
+1. Setup to pull EAP 8.2 s2i builder and runtime images in Openshift [only required for on-premise installation of OpenShift, not needed for OpenShift Sandbox]
 
 Create the authentication token secret for your OpenShift project using the YAML file that you downloaded:
 
@@ -90,14 +90,14 @@ oc secrets link default 1234567-myserviceaccount-pull-secret --for=pull
 oc secrets link builder 1234567-myserviceaccount-pull-secret --for=pull
 ```
 
-2. Deploy the example application using EAP 8.1 Helm charts
+2. Deploy the example application using EAP 8.2 Helm charts
 
 ```
-helm install eap81-source-build-app -f helm.yaml jboss-eap/eap81
+helm install eap82-source-build-app -f helm.yaml jboss-eap/eap82
 ```
 
 3. Access the endpoint
 
 ```
-curl https://$(oc get route eap81-source-build-app --template='{{ .spec.host }}')/
+curl https://$(oc get route eap82-source-build-app --template='{{ .spec.host }}')/
 ```

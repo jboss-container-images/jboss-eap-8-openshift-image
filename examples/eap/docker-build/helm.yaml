@@ -1,5 +1,5 @@
 image: 
- name: eap81-myapp
+ name: eap82-myapp
 build:
   enabled: false
 deploy:

@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ee-galleon-pack</artifactId>
-            <version>8.1.0.GA-redhat-00015</version>
+            <version>8.2.0.Alpha-redhat-00007</version>
             <type>zip</type>
             <exclusions>
                 <exclusion>
