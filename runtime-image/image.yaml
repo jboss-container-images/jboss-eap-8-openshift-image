@@ -1,21 +1,21 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8/eap81-openjdk17-runtime-openshift-rhel9"
-description: "The JBoss EAP 8.1 OpenJDK 17 runtime image"
-version: &imgVersion "1.0.0.GA"
+name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk21-runtime-openshift-rhel9"
+description: "The JBoss EAP 8.2 OpenJDK 21 runtime image"
+version: &imgVersion "1.0.0"
 from: "registry.access.redhat.com/ubi9/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
     - name: "org.jboss.product"
-      value: "eap81-openjdk17-runtime"
+      value: "eap82-openjdk21-runtime"
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk17-runtime-openshift-container"
+      value: "jboss-eap82-beta-openjdk21-runtime-openshift-container"
     - name: "io.k8s.description"
-      value: "Base image to run an EAP 8.1 server and application"
+      value: "Base image to run an EAP 8.2 server and application"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 8.1 runtime image"
+      value: "JBoss EAP 8.2 runtime image"
     - name: name
       value: *imgName
     - name: io.openshift.expose-services
@@ -46,24 +46,23 @@ modules:
           - name: openjdk
             git:
               url: https://github.com/rh-openjdk/redhat-openjdk-containers
-              ref: ubi9-wildfly-container-35.0
+              ref: ubi9-wildfly-container-40.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.35.0
+              ref: 0.40.0.1
           - name: eap-modules
             path: ../modules
       install:
           - name: jboss.container.user
             version: "2.0+jboss1"
           - name: jboss.container.openjdk.jdk
-            version: "17"
+            version: "21"
           - name: jboss.container.wildfly.dynamic-resources
             version: "2.0"
           - name: jboss.container.wildfly.run
             version: "2.0"
           - name: jboss.container.eap.cleanup
-          - name: jboss.container.util.pkg-update
 
 packages:
   manager: microdnf

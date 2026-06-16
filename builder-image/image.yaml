@@ -1,23 +1,23 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8/eap81-openjdk17-builder-openshift-rhel9"
-description: "Red Hat JBoss Enterprise Application Platform 8.1 OpenShift S2I Builder image."
-version: &imgVersion "1.0.0.GA"
+name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk21-builder-openshift-rhel9"
+description: "Red Hat JBoss Enterprise Application Platform 8.2 OpenShift S2I Builder image."
+version: &imgVersion "1.0.0"
 from: "registry.access.redhat.com/ubi9/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
     - name: name
       value: *imgName
     - name: "org.jboss.product"
-      value: "eap81-openjdk17-builder"
+      value: "eap82-openjdk21-builder"
     - name: "org.jboss.product.version"
       value: *imgVersion
     - name: "com.redhat.component"
-      value: "jboss-eap81-openjdk17-builder-openshift-container"
+      value: "jboss-eap82-beta-openjdk21-builder-openshift-container"
     - name: io.k8s.description
-      value: "Platform for building and running Jakarta EE applications on JBoss EAP 8.1"
+      value: "Platform for building and running Jakarta EE applications on JBoss EAP 8.2"
     - name: io.k8s.display-name
-      value: "JBoss EAP 8.1 S2I builder"
+      value: "JBoss EAP 8.2 S2I builder"
     - name: io.openshift.expose-services
       value: "8080:http"
     - name: io.openshift.tags
@@ -43,7 +43,7 @@ envs:
     - name: PROVISIONING_MAVEN_PLUGIN_GROUP_ID
       value: org.jboss.eap.plugins
     - name: PROVISIONING_MAVEN_PLUGIN_VERSION
-      value: 2.0.0.Final-redhat-00009
+      value: 3.0.0.Beta-redhat-00033
     - name: SSO_DEFAULT_PROVIDER_NAME
       value: rh-sso
 ports:
@@ -56,20 +56,20 @@ modules:
           - name: openjdk
             git:
               url: https://github.com/rh-openjdk/redhat-openjdk-containers
-              ref: ubi9-wildfly-container-35.0
+              ref: ubi9-wildfly-container-40.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.35.0
+              ref: 0.40.0.1
           - name: eap-modules
             path: ../modules
       install:
           - name: jboss.container.user
             version: "2.0+jboss1"
           - name: jboss.container.openjdk.jdk
-            version: "17"
+            version: "21"
           - name: jboss.container.maven
-            version: "3.8.17"
+            version: "3.9.21"
           - name: jboss.container.wildfly.dynamic-resources
             version: "2.0"
           - name: jboss.container.maven.s2i
@@ -78,7 +78,6 @@ modules:
           - name: jboss.container.wildfly.s2i.legacy
           - name: jboss.container.eap.s2i-eap.bash
           - name: jboss.container.eap.cleanup
-          - name: jboss.container.util.pkg-update
 
 packages:
   manager: microdnf

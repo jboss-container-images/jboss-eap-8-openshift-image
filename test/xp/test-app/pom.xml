@@ -52,13 +52,13 @@
                                 <channel>
                                     <manifest>
                                         <groupId>org.jboss.eap.channels</groupId>
-                                        <artifactId>eap-8.1</artifactId>
+                                        <artifactId>eap-8.2</artifactId>
                                     </manifest>
                                 </channel>
                                 <channel>
                                     <manifest>
                                         <groupId>org.jboss.eap.channels</groupId>
-                                        <artifactId>eap-xp-6.0</artifactId>
+                                        <artifactId>eap-xp-7.0</artifactId>
                                     </manifest>
                                 </channel>
                             </channels>
