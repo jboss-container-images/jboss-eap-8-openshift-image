@@ -58,7 +58,7 @@
                                 <channel>
                                     <manifest>
                                         <groupId>org.jboss.eap.channels</groupId>
-                                        <artifactId>eap-xp-6.0</artifactId>
+                                        <artifactId>eap-xp-7.0</artifactId>
                                     </manifest>
                                 </channel>
                             </channels>

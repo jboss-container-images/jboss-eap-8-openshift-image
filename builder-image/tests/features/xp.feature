@@ -41,7 +41,7 @@ Scenario: Check with env based legacy configuration
    | variable                 | value           |
    | GALLEON_PROVISION_LAYERS | cloud-server, microprofile-config |
    | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap.xp:wildfly-galleon-pack,org.jboss.eap.xp.cloud:eap-xp-cloud-galleon-pack |
-   | GALLEON_PROVISION_CHANNELS | org.jboss.eap.channels:eap-8.2,org.jboss.eap.channels:eap-xp-6.0 |  
+   | GALLEON_PROVISION_CHANNELS | org.jboss.eap.channels:eap-8.2,org.jboss.eap.channels:eap-xp-7.0 |
    Then container log should contain Running jboss-eap-8/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
