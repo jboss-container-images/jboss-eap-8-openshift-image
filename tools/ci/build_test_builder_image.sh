@@ -20,8 +20,7 @@ repoMrrcDir=$(find $tmpPath/mrrc -type d -iname "*-maven-repository")
 repoXpDir=$(find $tmpPath/xp -type d -iname "*-maven-repository")
 
 mv $repoDir/maven-repository $tmpPath/docker
-mkdir -p $tmpPath/docker/maven-repository/org/jboss/eap/plugins
-mv $repoMrrcDir/maven-repository/org/jboss/eap/plugins/* $tmpPath/docker/maven-repository/org/jboss/eap/plugins
+cp -r $repoMrrcDir/maven-repository/* $tmpPath/docker/maven-repository
 cp -r $repoXpDir/maven-repository/* $tmpPath/docker/maven-repository
 
 cp tools/ocp-settings.xml $tmpPath/docker/ocp-settings.xml
