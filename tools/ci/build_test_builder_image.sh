@@ -23,6 +23,9 @@ mv $repoDir/maven-repository $tmpPath/docker
 cp -r $repoMrrcDir/maven-repository/* $tmpPath/docker/maven-repository
 cp -r $repoXpDir/maven-repository/* $tmpPath/docker/maven-repository
 
+echo "Is glow present?"
+ls -l $tmpPath/docker/maven-repository/org/wildfly/glow
+
 cp tools/ocp-settings.xml $tmpPath/docker/ocp-settings.xml
 
 eapVersion=$(echo $tmpPath/docker/maven-repository/org/jboss/eap/wildfly-ee-galleon-pack/*/)
