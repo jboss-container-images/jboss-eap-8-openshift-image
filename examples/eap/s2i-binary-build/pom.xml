@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
         <version.maven.war.plugin>3.4.0</version.maven.war.plugin>
-        <version.eap.plugin>2.0.0.Final-redhat-00009</version.eap.plugin>
+        <version.eap.plugin>3.0.0.Beta-redhat-00058</version.eap.plugin>
     </properties>
     
     <dependencies>
@@ -45,13 +45,6 @@
                             <manifest>
                                 <groupId>org.jboss.eap.channels</groupId>
                                 <artifactId>eap-8.2</artifactId>
-                            </manifest>
-                        </channel>
-                        <channel>
-                            <manifest>
-                                <groupId>org.jboss.eap.channels</groupId>
-                                <artifactId>wildfly-ee</artifactId>
-                                <version>${version.eap}</version>
                             </manifest>
                         </channel>
                     </channels>
