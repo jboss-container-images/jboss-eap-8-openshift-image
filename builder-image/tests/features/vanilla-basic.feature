@@ -6,7 +6,7 @@ Feature: Vanilla EAP basic tests
    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/vanilla-eap/test-app with env and True using eap82-beta-dev
    | variable                             | value         |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8/
+   Then container log should contain Running jboss-eap-8-tech-preview/
 
 Scenario:  Test basic deployment vanilla WildFly
     When container integ- is started with env

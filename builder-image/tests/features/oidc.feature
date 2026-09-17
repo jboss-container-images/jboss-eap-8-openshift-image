@@ -5,7 +5,7 @@ Feature: OIDC tests
    Scenario: Check oidc subsystem configuration.
      Given XML namespaces
        | prefix | url                          |
-       | ns     | urn:wildfly:elytron-oidc-client:2.0 |
+       | ns     | urn:wildfly:elytron-oidc-client:3.0 |
      Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app-elytron-oidc-client with env and True using eap82-beta-dev
        | variable               | value                                            |
        | OIDC_PROVIDER_NAME | keycloak |
@@ -31,7 +31,7 @@ Feature: OIDC tests
   Scenario: Check oidc subsystem configuration, legacy.
      Given XML namespaces
        | prefix | url                          |
-       | ns     | urn:wildfly:elytron-oidc-client:2.0 |
+       | ns     | urn:wildfly:elytron-oidc-client:3.0 |
      When container integ- is started with env
        | variable               | value                                            |
        | OIDC_PROVIDER_NAME | keycloak |
@@ -49,7 +49,7 @@ Feature: OIDC tests
   Scenario: Check oidc subsystem configuration, legacy with ENV_FILES
      Given XML namespaces
        | prefix | url                          |
-       | ns     | urn:wildfly:elytron-oidc-client:2.0 |
+       | ns     | urn:wildfly:elytron-oidc-client:3.0 |
     When container integ- is started with command bash
        | variable                 | value           |
        | ENV_FILES | /tmp/oidc.env |
