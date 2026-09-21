@@ -7,7 +7,7 @@
     </feature-pack>
     <config model="standalone" name="standalone.xml">
         <layers>
-            <include name="jaxrs"/>
+            <include name="jaxrs-server"/>
             <include name="observability"/>
         </layers>
     </config>
