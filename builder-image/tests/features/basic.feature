@@ -7,7 +7,7 @@ Feature: EAP basic tests
    | variable                 | value           |
    | S2I_SERVER_DIR | server |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8/
+   Then container log should contain Running jboss-eap-8-tech-preview/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario:  Test ENV_FILES just to validate that there is no side effect
@@ -26,7 +26,7 @@ Feature: EAP basic tests
    Given s2i build https://github.com/jboss-container-images/jboss-eap-8-openshift-image from test/test-app with env and True using eap82-beta-dev
    | variable                 | value           |
    ### PLACEHOLDER FOR CLOUD CUSTOM TESTING ###
-   Then container log should contain Running jboss-eap-8/
+   Then container log should contain Running jboss-eap-8-tech-preview/
    Then exactly 2 times container log should contain WFLYSRV0025:
 
   Scenario:  Test basic deployment
