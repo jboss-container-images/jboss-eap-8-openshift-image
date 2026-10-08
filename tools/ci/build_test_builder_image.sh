@@ -43,7 +43,7 @@ echo "XP7 version is $eapXpVersion"
 docker_file=$tmpPath/docker/Dockerfile
 echo "Create JDK $jdkVersion custom builder docker file"
 cat <<EOF > $docker_file
-  FROM jboss-eap-8-tech-preview/eap82-open$jdkVersion-builder-openshift-rhel9:latest
+  FROM jboss-eap-8/eap82-open$jdkVersion-builder-openshift-rhel10:latest
   ENV PROVISIONING_MAVEN_PLUGIN_VERSION=$pluginVersion
   COPY --chown=jboss:root ocp-settings.xml /home/jboss/.m2/settings.xml
   COPY --chown=jboss:root maven-repository /maven-repository
@@ -57,7 +57,7 @@ export KEYTAB=~/keytab-eap-qe-ci
 export DOCKER_HOST=unix:///var/run/podman/podman.sock
 export CONTAINER_HOST=unix:///var/run/podman/podman.sock
 podman system prune -af
-docker pull registry.access.redhat.com/ubi9/ubi-minimal:latest
+docker pull registry.access.redhat.com/ubi10/ubi-minimal:latest
 pip install cekit docker docker-squash python-docker odcs behave lxml gssapi requests_gssapi
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/2022-IT-Root-CA.pem
 cd builder-image
