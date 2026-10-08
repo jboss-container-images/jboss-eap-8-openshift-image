@@ -1,7 +1,7 @@
 schema_version: 1
 
 packages:
-  content_sets_file: content_sets_rhel9.yml
+  content_sets_file: content_sets_rhel10.yml
 
 osbs:
   configuration:
@@ -17,4 +17,4 @@ osbs:
         signing_intent: release
   repository:
     name: containers/jboss-eap82-beta-openjdk25-builder-openshift
-    branch: jb-eap-8.2-rhel-9
+    branch: jb-eap-8.2-rhel-10

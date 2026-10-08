@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk25-builder-openshift-rhel9"
+name: &imgName "jboss-eap-8/eap82-openjdk25-builder-openshift-rhel10"
 labels:
     - name: "org.jboss.product"
       value: "eap82-openjdk25-builder"

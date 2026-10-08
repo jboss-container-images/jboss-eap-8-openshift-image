@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk25-runtime-openshift-rhel9"
+name: &imgName "jboss-eap-8/eap82-openjdk25-runtime-openshift-rhel10"
 description: "The JBoss EAP 8.2 OpenJDK 25 runtime image"
 
 labels:

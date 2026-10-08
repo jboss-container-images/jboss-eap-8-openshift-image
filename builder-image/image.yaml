@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: &imgName "jboss-eap-8-tech-preview/eap82-openjdk21-builder-openshift-rhel9"
+name: &imgName "jboss-eap-8/eap82-openjdk21-builder-openshift-rhel10"
 description: "Red Hat JBoss Enterprise Application Platform 8.2 OpenShift S2I Builder image."
 version: &imgVersion "1.0.0"
-from: "registry.access.redhat.com/ubi9/ubi-minimal"
+from: "registry.access.redhat.com/ubi10/ubi-minimal"
 # Warning, we must use cekit min version 4.3.0 in order for the labels to be set at the end of the build and override JDK modules ones.
 labels:
     - name: name
@@ -56,11 +56,11 @@ modules:
           - name: openjdk
             git:
               url: https://github.com/rh-openjdk/redhat-openjdk-containers
-              ref: ubi9-wildfly-container-40.0
+              ref: ubi10-wildfly-container-41.0
           - name: wildfly-cekit-modules
             git:
               url: https://github.com/wildfly/wildfly-cekit-modules
-              ref: 0.40.0.1
+              ref: 0.41.1
           - name: eap-modules
             path: ../modules
       install:
