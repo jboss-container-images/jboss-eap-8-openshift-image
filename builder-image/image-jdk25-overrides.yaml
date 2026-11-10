@@ -17,4 +17,5 @@ modules:
       install:
           - name: jboss.container.openjdk.jdk
             version: "25"
-          - name: jboss.container.java.singleton-jdk
+          - name: jboss.container.maven
+            version: "3.9.25"
