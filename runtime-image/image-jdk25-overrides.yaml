@@ -8,7 +8,8 @@ labels:
       value: "eap82-openjdk25-runtime"
     - name: "com.redhat.component"
       value: "jboss-eap82-beta-openjdk25-runtime-openshift-container"
-
+    - name: name
+      value: *imgName
 envs:
     - name: IMAGE_NAME
       value: *imgName
