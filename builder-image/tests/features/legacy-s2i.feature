@@ -13,6 +13,17 @@ Feature: EAP Legacy s2i tests
       | path     | /     |
       | port     | 8080  |
 
+Scenario: Test un-compressed SBOM
+    Given s2i build https://github.com/openshift/openshift-jee-sample from . with env and True using master
+      | variable                             | value         |
+      | GALLEON_PROVISION_OPTIONS             | jboss-cyclonedx-compress=false,jboss-cyclonedx-output=foo.json  |
+      | GALLEON_PROVISION_CHANNELS|org.jboss.eap.channels:eap-8.2 |
+      | GALLEON_PROVISION_FEATURE_PACKS | org.jboss.eap:wildfly-ee-galleon-pack,org.jboss.eap.cloud:eap-cloud-galleon-pack |
+      | GALLEON_PROVISION_LAYERS             | cloud-server  |
+    Then container log should contain WFLYSRV0025
+    And run sh -c 'head -c 50 /opt/server/foo.json > /tmp/sbom-check.txt' in container and detach
+    And file /tmp/sbom-check.txt should contain CycloneDX
+
 Scenario: Test preconfigure.sh
     Given s2i build https://github.com/jboss-container-images/jboss-eap-modules from tests/examples/test-app-advanced-extensions with env and True using master
       | variable                             | value         |

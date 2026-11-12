@@ -3,8 +3,10 @@ set -e
 tmpPath=$1
 jdkVersion=$2
 # get zipped repository
-latestEAP=$(curl -s https://eap-prod-share.usersys.redhat.com/eap/ | egrep -o 8.2.[0-9]+.Beta-CR[0-9]+\(\\.[0-9]+\)? | sort -Vr | head -1)
-latestXP=$(curl -s https://eap-prod-share.usersys.redhat.com/eap/ | egrep -o 7.0.[0-9]+.Beta-CR[0-9]+\(\\.[0-9]+\)? | sort -Vr | head -1)
+#latestEAP=$(curl -s https://eap-prod-share.usersys.redhat.com/eap/ | egrep -o 8.2.[0-9]+.Beta-CR[0-9]+\(\\.[0-9]+\)? | sort -Vr | head -1)
+#latestXP=$(curl -s https://eap-prod-share.usersys.redhat.com/eap/ | egrep -o 7.0.[0-9]+.Beta-CR[0-9]+\(\\.[0-9]+\)? | sort -Vr | head -1)
+latestEAP=8.2.0.Beta-CR11
+latestXP=7.0.0.Beta-CR5
 echo Latest EAP repos version $latestEAP
 echo Latest XP repository $latestXP 
 wget https://eap-prod-share.usersys.redhat.com/eap/JBEAP-$latestEAP-candidate/jboss-eap-$latestEAP-maven-repository.zip
